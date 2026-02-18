@@ -383,6 +383,98 @@ body::after {
   pointer-events:none; z-index:999;
 }
 .shake { animation:shake 0.4s ease !important; }
+
+/* ── MOBILE RESPONSIVE ─────────────────────────── */
+@media (max-width: 480px) {
+  /* 화면 전체 패딩 줄이기 */
+  .screen { padding:12px; }
+  .screen.active { justify-content:flex-start; padding-top:60px; padding-bottom:24px; }
+
+  /* 로고 */
+  .logo { font-size:1.9rem; margin-bottom:6px; }
+  .logo-sub { font-size:0.85rem; margin-bottom:18px; }
+
+  /* 카드 패딩 */
+  .card { padding:22px 18px; border-radius:22px; }
+
+  /* 이름 입력 - 세로로 쌓기 */
+  .name-row { grid-template-columns:1fr; gap:10px; margin-bottom:16px; }
+
+  /* 설정 */
+  .settings-row { gap:10px; margin-bottom:16px; }
+  .select-box { font-size:0.88rem; padding:9px 12px; }
+
+  /* 주제 칩 */
+  .topics-grid { gap:7px; margin-bottom:20px; }
+  .topic-chip { padding:9px 4px; font-size:0.7rem; border-radius:14px; }
+  .topic-chip .emoji { font-size:1.3rem; }
+
+  /* 버튼 */
+  .btn-start { font-size:1.2rem; padding:13px; border-radius:16px; }
+  .btn-ranking-home { font-size:0.95rem; padding:10px; border-radius:16px; margin-top:8px; }
+  .divider { margin:14px 0; }
+
+  /* ── 게임 화면 ── */
+  #screen-game { gap:12px; padding-top:70px; }
+
+  .game-header { margin-bottom:0; }
+  .score-pill { padding:6px 12px; font-size:0.78rem; }
+  .score-num { font-size:1.1rem; }
+
+  /* 타이머 작게 */
+  .timer-wrap { width:90px; height:90px; }
+  .timer-svg { width:90px; height:90px; }
+  .timer-bg, .timer-ring { r:35; cx:45; cy:45; }
+  .timer-text { font-size:1.15rem; }
+
+  /* 단어 카드 */
+  .word-card { padding:28px 18px; min-height:130px; border-radius:22px; }
+  .word-label { font-size:0.7rem; margin-bottom:10px; letter-spacing:1px; }
+  .word-display { font-size:clamp(2rem,10vw,3rem); }
+  .word-num { font-size:0.72rem; margin-top:8px; }
+
+  /* 정답/패스 버튼 */
+  .game-btns { gap:10px; }
+  .btn-correct, .btn-pass { padding:16px 10px; font-size:1.6rem; border-radius:18px; }
+  .btn-label { font-size:0.7rem; }
+
+  /* ── 결과 화면 ── */
+  #screen-result { padding-top:70px; padding-bottom:30px; }
+  .result-header { font-size:1.6rem; margin-bottom:14px; }
+  .result-card { padding:20px 16px; border-radius:22px; }
+  .result-avatar { width:36px; height:36px; font-size:1rem; }
+  .result-name { font-size:0.9rem; }
+  .result-role { font-size:0.68rem; }
+  .result-details { gap:7px; margin-top:14px; }
+  .detail-box { padding:10px 6px; border-radius:12px; }
+  .detail-num { font-size:1.5rem; }
+  .detail-label { font-size:0.65rem; }
+
+  /* 결과 버튼들 세로 정렬 */
+  #screen-result > div[style*="flex"] {
+    flex-direction:column !important;
+    width:100%; max-width:520px;
+  }
+  .btn-restart {
+    width:100%; text-align:center;
+    padding:13px 20px; font-size:1.05rem;
+    border-radius:16px;
+  }
+
+  /* ── 랭킹 화면 ── */
+  #screen-ranking { padding-top:70px; padding-bottom:30px; }
+  .ranking-title { font-size:1.5rem; }
+  .ranking-sub { font-size:0.75rem; margin-bottom:14px; }
+  .ranking-card { padding:16px 14px; border-radius:22px; max-height:55vh; }
+  .rank-badge { font-size:1.1rem; width:30px; }
+  .rank-pair { font-size:0.82rem; }
+  .rank-meta { font-size:0.65rem; }
+  .rank-score { font-size:1.5rem; }
+  .ranking-row { gap:10px; padding:10px 0; }
+
+  /* 뮤트 버튼 */
+  .mute-btn { width:38px; height:38px; font-size:1.1rem; top:12px; right:12px; }
+}
 </style>
 </head>
 <body>
@@ -753,7 +845,10 @@ function answerPass() {
 
 function startTimer() {
   const ring = document.getElementById('timer-ring');
+  const r = parseFloat(ring.getAttribute('r')) || 50;
+  const circumference = 2 * Math.PI * r;
   ring.style.stroke = 'var(--mint)';
+  ring.style.strokeDasharray = circumference;
   clearInterval(timerInterval);
   document.getElementById('timer-text').textContent = formatTime(timeLeft);
   ring.style.strokeDashoffset = 0;
@@ -761,7 +856,7 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById('timer-text').textContent = formatTime(timeLeft);
-    ring.style.strokeDashoffset = 314 * (1 - timeLeft / totalTime);
+    ring.style.strokeDashoffset = circumference * (1 - timeLeft / totalTime);
     if (timeLeft <= 10) ring.style.stroke = 'var(--pink)';
     else if (timeLeft <= 30) ring.style.stroke = 'var(--peach)';
     if (timeLeft <= 0) { clearInterval(timerInterval); endGame(); }
@@ -815,7 +910,28 @@ function goHome() {
   showScreen('screen-setup');
 }
 
-// ── Ranking ──────────────────────────────────────────
+  // 모바일 타이머 크기 조정
+  function resizeTimer() {
+    const isMobile = window.innerWidth <= 480;
+    const size = isMobile ? 90 : 120;
+    const r = isMobile ? 35 : 50;
+    const cx = isMobile ? 45 : 60;
+    const svg = document.querySelector('.timer-svg');
+    const bg = document.getElementById('timer-ring').previousElementSibling;
+    const ring = document.getElementById('timer-ring');
+    if (svg) { svg.setAttribute('width', size); svg.setAttribute('height', size); svg.setAttribute('viewBox', `0 0 ${size} ${size}`); }
+    if (bg) { bg.setAttribute('cx', cx); bg.setAttribute('cy', cx); bg.setAttribute('r', r); }
+    if (ring) {
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cx); ring.setAttribute('r', r);
+      const circ = 2 * Math.PI * r;
+      ring.setAttribute('stroke-dasharray', circ);
+      ring.style.strokeDasharray = circ;
+    }
+    document.querySelector('.timer-wrap').style.width = size + 'px';
+    document.querySelector('.timer-wrap').style.height = size + 'px';
+  }
+  resizeTimer();
+  window.addEventListener('resize', resizeTimer);
 const RANKING_KEY = 'speedquiz_ranking_v1';
 
 function loadRanking() {
