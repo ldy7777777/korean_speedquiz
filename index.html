@@ -750,13 +750,15 @@ function updateWord() {
 }
 
 function answerCorrect() {
-  wordResults.push({ word: wordList[currentIndex].w, result: 'correct' });
+  const hintUsed = document.querySelector('.btn-hint') && document.querySelector('.btn-hint').classList.contains('used');
+  wordResults.push({ word: wordList[currentIndex].w, result: 'correct', hint: hintUsed });
   score++; currentIndex++;
   updateWord();
 }
 
 function answerPass() {
-  wordResults.push({ word: wordList[currentIndex].w, result: 'pass' });
+  const hintUsed = document.querySelector('.btn-hint') && document.querySelector('.btn-hint').classList.contains('used');
+  wordResults.push({ word: wordList[currentIndex].w, result: 'pass', hint: hintUsed });
   passCount++; currentIndex++;
   updateWord();
 }
@@ -808,18 +810,7 @@ async function endGame() {
 
   const log = document.getElementById('word-log');
   log.innerHTML = '';
-  wordResults.forEach(r => {
-    const div = document.createElement('div');
-    div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:${r.result==='correct'?'#F0FFF8':'#FFF8F0'};font-weight:800;font-size:0.9rem;color:var(--dark)`;
-    div.innerHTML = `<span>${r.word}</span><span>${r.result==='correct'?'✅ 정답':'⏭️ 패스'}</span>`;
-    log.appendChild(div);
-  });
-  for (let i = currentIndex; i < wordList.length; i++) {
-    const div = document.createElement('div');
-    div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:#F5F5F5;font-weight:800;font-size:0.9rem;color:#AAA`;
-    div.innerHTML = `<span>${wordList[i].w}</span><span>미도달</span>`;
-    log.appendChild(div);
-  }
+  renderWordLog(log, wordResults, wordList, currentIndex);
 
   await addRankingEntry(sName, tName, score, wordList.length, totalTime);
   showScreen('screen-result');
@@ -984,16 +975,42 @@ function launchConfetti() {
   setTimeout(() => { cancelAnimationFrame(frame); ctx.clearRect(0, 0, canvas.width, canvas.height); }, 4000);
 }
 
+// ── 결과 기록 렌더링 (공유/일반 공통) ────────────────
+function renderWordLog(container, results, remaining, remainStart) {
+  container.innerHTML = '';
+  results.forEach(r => {
+    const bg = r.result === 'correct' ? '#F0FFF8' : '#FFF8F0';
+    const badge = r.result === 'correct' ? '✅ 정답' : '⏭️ 패스';
+    const hintBadge = r.hint ? ' <span style="font-size:0.72rem;background:#EDE0FF;color:#7C3AED;padding:2px 7px;border-radius:20px;margin-left:4px">💡힌트</span>' : '';
+    const div = document.createElement('div');
+    div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:${bg};font-weight:800;font-size:0.9rem;color:var(--dark);gap:6px`;
+    div.innerHTML = `<span>${r.word}${hintBadge}</span><span>${badge}</span>`;
+    container.appendChild(div);
+  });
+  if (remaining) {
+    for (let i = remainStart; i < remaining.length; i++) {
+      const div = document.createElement('div');
+      div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:#F5F5F5;font-weight:800;font-size:0.9rem;color:#AAA`;
+      div.innerHTML = `<span>${remaining[i].w || remaining[i]}</span><span>미도달</span>`;
+      container.appendChild(div);
+    }
+  }
+}
+
 // ── 결과 공유 ─────────────────────────────────────────
 function shareResult() {
   const student = document.getElementById('result-student-name').textContent;
   const teacher = document.getElementById('result-teacher-name').textContent;
   const correct = document.getElementById('res-correct').textContent;
   const pass    = document.getElementById('res-pass').textContent;
+  const hint    = document.getElementById('res-hint').textContent;
   const total   = document.getElementById('res-total').textContent;
 
-  const params = new URLSearchParams({ student, teacher, correct, pass, total });
-  const url = location.origin + location.pathname + '?' + params.toString();
+  // 단어 결과도 인코딩
+  const wordsEncoded = encodeURIComponent(JSON.stringify(wordResults));
+
+  const params = new URLSearchParams({ student, teacher, correct, pass, hint, total });
+  const url = location.origin + location.pathname + '?' + params.toString() + '&words=' + wordsEncoded;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url)
@@ -1028,23 +1045,30 @@ function checkSharedResult() {
   const teacher = params.get('teacher');
   const correct = params.get('correct');
   const pass    = params.get('pass');
+  const hint    = params.get('hint') || '0';
   const total   = params.get('total');
 
   document.getElementById('result-student-name').textContent = student;
   document.getElementById('result-teacher-name').textContent = teacher;
   document.getElementById('res-correct').textContent = correct;
   document.getElementById('res-pass').textContent    = pass;
+  document.getElementById('res-hint').textContent    = hint;
   document.getElementById('res-total').textContent   = total;
   document.getElementById('result-header').textContent =
     parseInt(correct) >= parseInt(total) * 0.7
       ? `🎉 대단해요, ${student}!`
       : `💪 수고했어요, ${student}!`;
 
-  // 단어 기록은 공유 링크에 없으므로 숨기기
-  document.getElementById('word-log').innerHTML =
-    '<div style="text-align:center;color:#CCC;font-size:0.85rem;font-weight:800;padding:12px">공유된 결과예요 😊</div>';
+  // 단어 기록 복원
+  const log = document.getElementById('word-log');
+  try {
+    const words = JSON.parse(decodeURIComponent(params.get('words') || '[]'));
+    renderWordLog(log, words, null, 0);
+  } catch(e) {
+    log.innerHTML = '<div style="text-align:center;color:#CCC;font-size:0.85rem;font-weight:800;padding:12px">단어 기록을 불러올 수 없어요</div>';
+  }
 
-  // 공유 결과 화면에서는 다시하기/공유 버튼 숨기기
+  // 공유 결과 화면에서는 공유 버튼만 숨기기
   document.getElementById('btn-share').style.display = 'none';
 
   showScreen('screen-result');
