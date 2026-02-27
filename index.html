@@ -11,7 +11,6 @@
   --peach: #FFB347;
   --mint: #7FDBDA;
   --lavender: #C5A3FF;
-  --yellow: #FFE66D;
   --cream: #FFF9F0;
   --soft-pink: #FFD6E7;
   --soft-mint: #C8F7F5;
@@ -28,16 +27,14 @@ body {
   overflow-x: hidden;
 }
 body::before {
-  content:'';
-  position:fixed; top:-100px; left:-100px;
+  content:''; position:fixed; top:-100px; left:-100px;
   width:400px; height:400px;
   background:radial-gradient(circle, #FFD6E700 0%, var(--soft-pink) 70%);
   border-radius:50%; z-index:0;
   animation:float1 8s ease-in-out infinite;
 }
 body::after {
-  content:'';
-  position:fixed; bottom:-80px; right:-80px;
+  content:''; position:fixed; bottom:-80px; right:-80px;
   width:350px; height:350px;
   background:radial-gradient(circle, #C8F7F500 0%, var(--soft-mint) 70%);
   border-radius:50%; z-index:0;
@@ -49,12 +46,10 @@ body::after {
 @keyframes wiggle { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 @keyframes fadein { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 @keyframes celebrate { 0%{transform:scale(1)} 25%{transform:scale(1.1) rotate(3deg)} 50%{transform:scale(1.15) rotate(-3deg)} 100%{transform:scale(1)} }
-@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
 .screen {
-  display:none;
-  position:relative; z-index:1;
+  display:none; position:relative; z-index:1;
   min-height:100vh; padding:20px;
   animation:fadein 0.4s ease;
 }
@@ -74,8 +69,7 @@ body::after {
   margin-bottom:30px; font-weight:700;
 }
 .card {
-  background:white; border-radius:28px;
-  padding:32px 36px;
+  background:white; border-radius:28px; padding:32px 36px;
   box-shadow:0 8px 32px var(--shadow);
   width:100%; max-width:520px;
   animation:pop 0.4s cubic-bezier(.34,1.56,.64,1);
@@ -84,15 +78,9 @@ body::after {
   font-size:1rem; font-weight:800; color:var(--mid);
   margin-bottom:14px; display:flex; align-items:center; gap:8px;
 }
-.name-row {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:14px; margin-bottom:24px;
-}
+.name-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
 .input-group { display:flex; flex-direction:column; gap:6px; }
-.input-group label {
-  font-size:0.82rem; font-weight:800; color:var(--mid);
-  display:flex; align-items:center; gap:5px;
-}
+.input-group label { font-size:0.82rem; font-weight:800; color:var(--mid); display:flex; align-items:center; gap:5px; }
 .input-group input {
   font-family:'Nanum Gothic',sans-serif;
   font-size:1rem; font-weight:700;
@@ -102,14 +90,8 @@ body::after {
   transition:border-color 0.2s, box-shadow 0.2s;
   background:var(--cream);
 }
-.input-group input:focus {
-  border-color:var(--pink);
-  box-shadow:0 0 0 4px rgba(255,107,157,0.12);
-}
-.settings-row {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:14px; margin-bottom:24px;
-}
+.input-group input:focus { border-color:var(--pink); box-shadow:0 0 0 4px rgba(255,107,157,0.12); }
+.settings-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
 .select-box {
   font-family:'Nanum Gothic',sans-serif;
   font-size:0.95rem; font-weight:700;
@@ -117,75 +99,50 @@ body::after {
   border-radius:14px; padding:10px 14px;
   color:var(--dark); outline:none;
   background:var(--cream); cursor:pointer;
-  transition:border-color 0.2s;
-  appearance:none;
+  transition:border-color 0.2s; appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B5B8A' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 14px center;
-  padding-right:38px;
+  background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;
 }
 .select-box:focus { border-color:var(--lavender); }
-.topics-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:10px; margin-bottom:28px;
-}
+.topics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:28px; }
 .topic-chip {
-  display:flex; flex-direction:column;
-  align-items:center; gap:5px;
-  padding:12px 8px; border-radius:18px;
-  border:2.5px solid #EEE; background:white;
-  cursor:pointer; font-size:0.78rem;
-  font-weight:800; color:var(--mid);
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  padding:12px 8px; border-radius:18px; border:2.5px solid #EEE; background:white;
+  cursor:pointer; font-size:0.78rem; font-weight:800; color:var(--mid);
   transition:all 0.2s; user-select:none;
 }
 .topic-chip:hover { border-color:var(--pink); transform:translateY(-2px); }
 .topic-chip .emoji { font-size:1.6rem; }
 .topic-chip.selected {
-  border-color:var(--pink); background:var(--soft-pink);
-  color:var(--dark); transform:translateY(-2px);
-  box-shadow:0 4px 12px rgba(255,107,157,0.25);
+  border-color:var(--pink); background:var(--soft-pink); color:var(--dark);
+  transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,107,157,0.25);
 }
-.topic-title {
-  font-size:0.82rem; font-weight:800; color:var(--mid);
-  margin-bottom:10px; display:flex; align-items:center; gap:6px;
-}
+.topic-title { font-size:0.82rem; font-weight:800; color:var(--mid); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
 .btn-start {
-  width:100%; padding:16px; border-radius:18px;
-  border:none;
+  width:100%; padding:16px; border-radius:18px; border:none;
   background:linear-gradient(135deg, var(--pink), var(--lavender));
-  color:white; font-family:'Gaegu',cursive;
-  font-size:1.4rem; font-weight:700; cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-  box-shadow:0 6px 20px rgba(255,107,157,0.4);
-  letter-spacing:1px;
+  color:white; font-family:'Gaegu',cursive; font-size:1.4rem; font-weight:700; cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 6px 20px rgba(255,107,157,0.4); letter-spacing:1px;
 }
 .btn-start:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(255,107,157,0.5); }
 .btn-start:active { transform:translateY(0); }
 .btn-ranking-home {
-  width:100%; padding:12px; border-radius:18px;
-  border:none;
+  width:100%; padding:12px; border-radius:18px; border:none;
   background:linear-gradient(135deg, var(--peach), #FF8C42);
-  color:white; font-family:'Gaegu',cursive;
-  font-size:1.1rem; font-weight:700; cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-  box-shadow:0 6px 20px rgba(255,179,71,0.4);
+  color:white; font-family:'Gaegu',cursive; font-size:1.1rem; font-weight:700; cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 6px 20px rgba(255,179,71,0.4);
   letter-spacing:1px; margin-top:10px;
 }
-.btn-ranking-home:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(255,179,71,0.5); }
+.btn-ranking-home:hover { transform:translateY(-3px); }
 .divider { border:none; border-top:2px dashed #EEE; margin:20px 0; }
 
 /* GAME */
-#screen-game { gap:20px; }
-.game-header {
-  width:100%; max-width:520px;
-  display:flex; justify-content:space-between; align-items:center;
-}
+#screen-game { gap:16px; }
+.game-header { width:100%; max-width:520px; display:flex; justify-content:space-between; align-items:center; }
 .score-pill {
-  background:white; border-radius:50px;
-  padding:8px 18px; font-weight:800;
-  font-size:0.9rem; color:var(--dark);
-  box-shadow:0 4px 14px var(--shadow);
-  display:flex; align-items:center; gap:6px;
+  background:white; border-radius:50px; padding:8px 18px;
+  font-weight:800; font-size:0.9rem; color:var(--dark);
+  box-shadow:0 4px 14px var(--shadow); display:flex; align-items:center; gap:6px;
 }
 .score-num { font-family:'Gaegu',cursive; font-size:1.3rem; color:var(--pink); }
 .timer-wrap { position:relative; width:120px; height:120px; }
@@ -197,290 +154,150 @@ body::after {
   transition:stroke-dashoffset 1s linear, stroke 0.5s;
 }
 .timer-text {
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  font-family:'Gaegu',cursive;
-  font-size:1.4rem; font-weight:700; color:var(--dark);
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:'Gaegu',cursive; font-size:1.4rem; font-weight:700; color:var(--dark);
 }
 .word-card {
-  background:white; border-radius:28px;
-  width:100%; max-width:520px;
-  padding:40px 30px; text-align:center;
-  box-shadow:0 8px 32px var(--shadow);
-  min-height:180px; display:flex;
-  flex-direction:column; align-items:center; justify-content:center;
+  background:white; border-radius:28px; width:100%; max-width:520px;
+  padding:40px 30px; text-align:center; box-shadow:0 8px 32px var(--shadow);
+  min-height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center;
   position:relative; overflow:hidden;
 }
 .word-card::before {
-  content:''; position:absolute;
-  top:0; left:0; right:0; height:5px;
+  content:''; position:absolute; top:0; left:0; right:0; height:5px;
   background:linear-gradient(90deg, var(--pink), var(--lavender), var(--mint));
 }
-.word-label {
-  font-size:0.8rem; font-weight:800; color:var(--mid);
-  margin-bottom:16px; letter-spacing:2px; text-transform:uppercase;
-}
+.word-label { font-size:0.8rem; font-weight:800; color:var(--mid); margin-bottom:16px; letter-spacing:2px; }
 .word-display {
-  font-family:'Gaegu',cursive;
-  font-size:clamp(2.5rem,8vw,4rem);
+  font-family:'Gaegu',cursive; font-size:clamp(2.5rem,8vw,4rem);
   font-weight:700; color:var(--dark);
-  animation:pop 0.3s cubic-bezier(.34,1.56,.64,1);
-  line-height:1.2;
+  animation:pop 0.3s cubic-bezier(.34,1.56,.64,1); line-height:1.2;
 }
 .word-num { margin-top:12px; font-size:0.8rem; color:#CCC; font-weight:800; }
-.progress-wrap {
-  width:100%; max-width:520px;
-  background:#EEE; border-radius:20px; height:8px; overflow:hidden;
-}
-.progress-bar {
-  height:100%;
-  background:linear-gradient(90deg, var(--pink), var(--lavender));
-  border-radius:20px; transition:width 0.4s ease;
-}
-.game-btns {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:14px; width:100%; max-width:520px;
-}
+.progress-wrap { width:100%; max-width:520px; background:#EEE; border-radius:20px; height:8px; overflow:hidden; }
+.progress-bar { height:100%; background:linear-gradient(90deg, var(--pink), var(--lavender)); border-radius:20px; transition:width 0.4s ease; }
+.game-btns { display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; max-width:520px; }
 .btn-correct, .btn-pass {
   padding:20px; border-radius:22px; border:none; cursor:pointer;
   font-family:'Gaegu',cursive; font-size:2rem; font-weight:700;
   transition:transform 0.15s, box-shadow 0.15s;
   display:flex; flex-direction:column; align-items:center; gap:4px;
 }
-.btn-correct {
-  background:linear-gradient(135deg,#5EE89A,#00C9A7);
-  color:white; box-shadow:0 6px 20px rgba(94,232,154,0.45);
-}
-.btn-correct:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 10px 28px rgba(94,232,154,0.55); }
+.btn-correct { background:linear-gradient(135deg,#5EE89A,#00C9A7); color:white; box-shadow:0 6px 20px rgba(94,232,154,0.45); }
 .btn-correct:active { transform:scale(0.96); }
-.btn-pass {
-  background:linear-gradient(135deg,#FFB347,#FF8C42);
-  color:white; box-shadow:0 6px 20px rgba(255,179,71,0.45);
-}
-.btn-pass:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 10px 28px rgba(255,179,71,0.55); }
+.btn-pass { background:linear-gradient(135deg,#FFB347,#FF8C42); color:white; box-shadow:0 6px 20px rgba(255,179,71,0.45); }
 .btn-pass:active { transform:scale(0.96); }
 .btn-label { font-size:0.75rem; opacity:0.9; font-family:'Nanum Gothic',sans-serif; font-weight:800; }
 
 /* RESULT */
 .result-header {
-  font-family:'Gaegu',cursive;
-  font-size:clamp(1.8rem,5vw,2.8rem);
-  color:var(--dark); text-align:center;
-  animation:celebrate 0.6s ease;
+  font-family:'Gaegu',cursive; font-size:clamp(1.8rem,5vw,2.8rem);
+  color:var(--dark); text-align:center; animation:celebrate 0.6s ease; margin-bottom:16px;
 }
-.result-card {
-  background:white; border-radius:28px; padding:30px;
-  width:100%; max-width:520px;
-  box-shadow:0 8px 32px var(--shadow);
-}
-.result-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 0; border-bottom:2px dashed #F0E8FF;
-}
+.result-card { background:white; border-radius:28px; padding:30px; width:100%; max-width:520px; box-shadow:0 8px 32px var(--shadow); }
+.result-row { display:flex; align-items:center; padding:14px 0; border-bottom:2px dashed #F0E8FF; }
 .result-row:last-child { border-bottom:none; }
 .result-person { display:flex; align-items:center; gap:10px; }
-.result-avatar {
-  width:42px; height:42px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.2rem; font-weight:800;
-}
+.result-avatar { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
 .avatar-student { background:var(--soft-pink); }
 .avatar-teacher { background:var(--soft-mint); }
 .result-name { font-weight:800; font-size:1rem; color:var(--dark); }
 .result-role { font-size:0.75rem; color:var(--mid); }
-.result-details {
-  margin-top:20px; display:grid;
-  grid-template-columns:repeat(3,1fr); gap:10px;
-}
-.detail-box {
-  background:var(--cream); border-radius:16px;
-  padding:14px 10px; text-align:center;
-}
-.detail-num {
-  font-family:'Gaegu',cursive; font-size:1.8rem;
-  color:var(--dark); display:block; font-weight:700;
-}
+.result-details { margin-top:20px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.detail-box { background:var(--cream); border-radius:16px; padding:14px 10px; text-align:center; }
+.detail-num { font-family:'Gaegu',cursive; font-size:1.8rem; color:var(--dark); display:block; font-weight:700; }
 .detail-label { font-size:0.72rem; color:var(--mid); font-weight:800; }
 .btn-restart {
   padding:14px 28px; border-radius:50px; border:none;
   background:linear-gradient(135deg, var(--mint), #00C9A7);
-  color:white; font-family:'Gaegu',cursive;
-  font-size:1.2rem; font-weight:700; cursor:pointer;
-  box-shadow:0 6px 20px rgba(127,219,218,0.5);
-  transition:transform 0.2s, box-shadow 0.2s; letter-spacing:1px;
+  color:white; font-family:'Gaegu',cursive; font-size:1.2rem; font-weight:700; cursor:pointer;
+  box-shadow:0 6px 20px rgba(127,219,218,0.5); transition:transform 0.2s; letter-spacing:1px;
 }
-.btn-restart:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(127,219,218,0.6); }
+.btn-restart:hover { transform:translateY(-3px); }
 
 /* RANKING */
-.ranking-title {
-  font-family:'Gaegu',cursive;
-  font-size:clamp(1.6rem,5vw,2.4rem);
-  color:var(--dark); text-align:center;
-  margin-bottom:6px; font-weight:700;
-}
-.ranking-sub {
-  font-size:0.82rem; color:var(--mid);
-  font-weight:700; margin-bottom:20px; text-align:center;
-}
-.ranking-card {
-  background:white; border-radius:28px;
-  padding:24px 28px; width:100%; max-width:520px;
-  box-shadow:0 8px 32px var(--shadow);
-  max-height:60vh; overflow-y:auto;
-}
-.ranking-empty {
-  text-align:center; padding:40px 20px;
-  color:#CCC; font-weight:800; font-size:1rem; line-height:1.8;
-}
-.ranking-row {
-  display:flex; align-items:center; gap:14px;
-  padding:12px 0; border-bottom:2px dashed #F0E8FF;
-  animation:fadein 0.3s ease both;
-}
+.ranking-title { font-family:'Gaegu',cursive; font-size:clamp(1.6rem,5vw,2.4rem); color:var(--dark); text-align:center; margin-bottom:6px; font-weight:700; }
+.ranking-sub { font-size:0.82rem; color:var(--mid); font-weight:700; margin-bottom:20px; text-align:center; }
+.ranking-card { background:white; border-radius:28px; padding:24px 28px; width:100%; max-width:520px; box-shadow:0 8px 32px var(--shadow); max-height:60vh; overflow-y:auto; }
+.ranking-empty { text-align:center; padding:40px 20px; color:#CCC; font-weight:800; font-size:1rem; line-height:1.8; }
+.ranking-row { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:2px dashed #F0E8FF; animation:fadein 0.3s ease both; }
 .ranking-row:last-child { border-bottom:none; }
-.rank-badge {
-  font-family:'Gaegu',cursive; font-size:1.4rem;
-  font-weight:700; width:36px; text-align:center; flex-shrink:0;
-}
+.rank-badge { font-family:'Gaegu',cursive; font-size:1.4rem; font-weight:700; width:36px; text-align:center; flex-shrink:0; }
 .rank-1 { color:#FFD700; }
 .rank-2 { color:#C0C0C0; }
 .rank-3 { color:#CD7F32; }
 .rank-other { color:var(--mid); font-size:1rem; }
 .rank-info { flex:1; min-width:0; }
-.rank-pair {
-  font-size:0.95rem; font-weight:800; color:var(--dark);
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
+.rank-pair { font-size:0.95rem; font-weight:800; color:var(--dark); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .rank-meta { font-size:0.72rem; color:var(--mid); font-weight:700; margin-top:2px; }
-.rank-score {
-  font-family:'Gaegu',cursive; font-size:1.8rem;
-  font-weight:700; color:var(--pink); flex-shrink:0;
-}
+.rank-score { font-family:'Gaegu',cursive; font-size:1.8rem; font-weight:700; color:var(--pink); flex-shrink:0; }
 .btn-clear-ranking {
-  margin-top:12px; padding:8px 22px;
-  border-radius:50px; border:2px solid #EEE;
-  background:white; font-family:'Nanum Gothic',sans-serif;
-  font-size:0.78rem; font-weight:800; color:#CCC;
-  cursor:pointer; transition:all 0.2s;
+  margin-top:12px; padding:8px 22px; border-radius:50px; border:2px solid #EEE;
+  background:white; font-family:'Nanum Gothic',sans-serif; font-size:0.78rem; font-weight:800; color:#CCC; cursor:pointer; transition:all 0.2s;
 }
 .btn-clear-ranking:hover { border-color:var(--pink); color:var(--pink); }
 
-/* MUTE BTN */
-.mute-btn {
-  position:fixed; top:16px; right:16px; z-index:100;
-  background:white; border:2.5px solid var(--soft-lavender);
-  border-radius:50%; width:44px; height:44px;
-  font-size:1.3rem; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 14px var(--shadow); transition:transform 0.2s;
+/* 저장 알림 토스트 */
+.toast {
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--dark); color:white; padding:12px 24px; border-radius:50px;
+  font-weight:800; font-size:0.88rem; z-index:1000;
+  transition:transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+  opacity:0; pointer-events:none; white-space:nowrap;
 }
-.mute-btn:hover { transform:scale(1.1); }
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
 /* CONFETTI */
-#confetti-canvas {
-  position:fixed; top:0; left:0;
-  width:100%; height:100%;
-  pointer-events:none; z-index:999;
-}
+#confetti-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999; }
 .shake { animation:shake 0.4s ease !important; }
 
-/* ── MOBILE RESPONSIVE ─────────────────────────── */
+/* ── MOBILE ─────────────────── */
 @media (max-width: 480px) {
-  /* 화면 전체 패딩 줄이기 */
   .screen { padding:12px; }
-  .screen.active { justify-content:flex-start; padding-top:60px; padding-bottom:24px; }
-
-  /* 로고 */
+  .screen.active { justify-content:flex-start; padding-top:56px; padding-bottom:24px; }
   .logo { font-size:1.9rem; margin-bottom:6px; }
   .logo-sub { font-size:0.85rem; margin-bottom:18px; }
-
-  /* 카드 패딩 */
   .card { padding:22px 18px; border-radius:22px; }
-
-  /* 이름 입력 - 세로로 쌓기 */
   .name-row { grid-template-columns:1fr; gap:10px; margin-bottom:16px; }
-
-  /* 설정 */
   .settings-row { gap:10px; margin-bottom:16px; }
   .select-box { font-size:0.88rem; padding:9px 12px; }
-
-  /* 주제 칩 */
   .topics-grid { gap:7px; margin-bottom:20px; }
   .topic-chip { padding:9px 4px; font-size:0.7rem; border-radius:14px; }
   .topic-chip .emoji { font-size:1.3rem; }
-
-  /* 버튼 */
   .btn-start { font-size:1.2rem; padding:13px; border-radius:16px; }
   .btn-ranking-home { font-size:0.95rem; padding:10px; border-radius:16px; margin-top:8px; }
   .divider { margin:14px 0; }
-
-  /* ── 게임 화면 ── */
-  #screen-game { gap:12px; padding-top:70px; }
-
-  .game-header { margin-bottom:0; }
+  #screen-game { gap:12px; padding-top:60px; }
   .score-pill { padding:6px 12px; font-size:0.78rem; }
   .score-num { font-size:1.1rem; }
-
-  /* 타이머 작게 */
   .timer-wrap { width:90px; height:90px; }
-  .timer-svg { width:90px; height:90px; }
-  .timer-bg, .timer-ring { r:35; cx:45; cy:45; }
   .timer-text { font-size:1.15rem; }
-
-  /* 단어 카드 */
   .word-card { padding:28px 18px; min-height:130px; border-radius:22px; }
-  .word-label { font-size:0.7rem; margin-bottom:10px; letter-spacing:1px; }
+  .word-label { font-size:0.7rem; margin-bottom:10px; }
   .word-display { font-size:clamp(2rem,10vw,3rem); }
-  .word-num { font-size:0.72rem; margin-top:8px; }
-
-  /* 정답/패스 버튼 */
   .game-btns { gap:10px; }
   .btn-correct, .btn-pass { padding:16px 10px; font-size:1.6rem; border-radius:18px; }
-  .btn-label { font-size:0.7rem; }
-
-  /* ── 결과 화면 ── */
-  #screen-result { padding-top:70px; padding-bottom:30px; }
-  .result-header { font-size:1.6rem; margin-bottom:14px; }
+  #screen-result { padding-top:60px; padding-bottom:30px; }
+  .result-header { font-size:1.6rem; }
   .result-card { padding:20px 16px; border-radius:22px; }
-  .result-avatar { width:36px; height:36px; font-size:1rem; }
-  .result-name { font-size:0.9rem; }
-  .result-role { font-size:0.68rem; }
   .result-details { gap:7px; margin-top:14px; }
-  .detail-box { padding:10px 6px; border-radius:12px; }
+  .detail-box { padding:10px 6px; }
   .detail-num { font-size:1.5rem; }
   .detail-label { font-size:0.65rem; }
-
-  /* 결과 버튼들 세로 정렬 */
-  #screen-result > div[style*="flex"] {
-    flex-direction:column !important;
-    width:100%; max-width:520px;
-  }
-  .btn-restart {
-    width:100%; text-align:center;
-    padding:13px 20px; font-size:1.05rem;
-    border-radius:16px;
-  }
-
-  /* ── 랭킹 화면 ── */
-  #screen-ranking { padding-top:70px; padding-bottom:30px; }
-  .ranking-title { font-size:1.5rem; }
-  .ranking-sub { font-size:0.75rem; margin-bottom:14px; }
+  #screen-result .btn-row { flex-direction:column !important; width:100%; max-width:520px; }
+  #screen-result .btn-row .btn-restart { width:100%; text-align:center; border-radius:16px; }
+  #screen-ranking { padding-top:60px; padding-bottom:30px; }
   .ranking-card { padding:16px 14px; border-radius:22px; max-height:55vh; }
-  .rank-badge { font-size:1.1rem; width:30px; }
   .rank-pair { font-size:0.82rem; }
   .rank-meta { font-size:0.65rem; }
   .rank-score { font-size:1.5rem; }
-  .ranking-row { gap:10px; padding:10px 0; }
-
-  /* 뮤트 버튼 */
-  .mute-btn { width:38px; height:38px; font-size:1.1rem; top:12px; right:12px; }
 }
 </style>
 </head>
 <body>
 
 <canvas id="confetti-canvas"></canvas>
-<button class="mute-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
+<div class="toast" id="toast"></div>
 
 <!-- SCREEN 1: Setup -->
 <div id="screen-setup" class="screen active">
@@ -529,12 +346,12 @@ body::after {
 
     <div class="topic-title">🗂️ 주제 선택 (복수 선택 가능)</div>
     <div class="topics-grid">
-      <div class="topic-chip selected" data-topic="food"><span class="emoji">🍕</span>음식</div>
-      <div class="topic-chip" data-topic="celebrity"><span class="emoji">⭐</span>유명인</div>
-      <div class="topic-chip" data-topic="meme"><span class="emoji">😂</span>한국 밈</div>
-      <div class="topic-chip" data-topic="daily"><span class="emoji">🏠</span>일상 단어</div>
-      <div class="topic-chip" data-topic="emotion"><span class="emoji">💬</span>감정 표현</div>
-      <div class="topic-chip" data-topic="kpop"><span class="emoji">🎤</span>K-POP & 연예</div>
+      <div class="topic-chip selected" data-topic="food" onclick="toggleTopic(this)"><span class="emoji">🍕</span>음식</div>
+      <div class="topic-chip" data-topic="celebrity" onclick="toggleTopic(this)"><span class="emoji">⭐</span>유명인</div>
+      <div class="topic-chip" data-topic="meme" onclick="toggleTopic(this)"><span class="emoji">😂</span>한국 밈</div>
+      <div class="topic-chip" data-topic="daily" onclick="toggleTopic(this)"><span class="emoji">🏠</span>일상 단어</div>
+      <div class="topic-chip" data-topic="emotion" onclick="toggleTopic(this)"><span class="emoji">💬</span>감정 표현</div>
+      <div class="topic-chip" data-topic="kpop" onclick="toggleTopic(this)"><span class="emoji">🎤</span>K-POP & 연예</div>
     </div>
 
     <button class="btn-start" onclick="startGame()">게임 시작! 🚀</button>
@@ -569,12 +386,10 @@ body::after {
 
   <div class="game-btns">
     <button class="btn-correct" onclick="answerCorrect()">
-      ⭕
-      <span class="btn-label">정답!</span>
+      ⭕ <span class="btn-label">정답!</span>
     </button>
     <button class="btn-pass" onclick="answerPass()">
-      ➡️
-      <span class="btn-label">패스</span>
+      ➡️ <span class="btn-label">패스</span>
     </button>
   </div>
 </div>
@@ -582,7 +397,6 @@ body::after {
 <!-- SCREEN 3: Result -->
 <div id="screen-result" class="screen">
   <div class="result-header" id="result-header">🎉 수고했어요!</div>
-
   <div class="result-card">
     <div class="result-row">
       <div class="result-person">
@@ -602,9 +416,7 @@ body::after {
         </div>
       </div>
     </div>
-
     <hr class="divider">
-
     <div class="result-details">
       <div class="detail-box">
         <span class="detail-num" id="res-correct">0</span>
@@ -619,13 +431,12 @@ body::after {
         <span class="detail-label">📝 총 단어</span>
       </div>
     </div>
-
     <hr class="divider">
     <div class="section-title" style="justify-content:center">📋 결과 기록</div>
     <div id="word-log" style="max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
   </div>
 
-  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center">
+  <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center">
     <button class="btn-restart" onclick="restartGame()">🔄 다시 하기</button>
     <button class="btn-restart" style="background:linear-gradient(135deg,var(--lavender),var(--pink));box-shadow:0 6px 20px rgba(197,163,255,0.5)" onclick="goHome()">🏠 처음으로</button>
     <button class="btn-restart" style="background:linear-gradient(135deg,var(--peach),#FF8C42);box-shadow:0 6px 20px rgba(255,179,71,0.5)" onclick="showRanking()">🏆 랭킹 보기</button>
@@ -655,83 +466,79 @@ body::after {
   </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 <script>
-// ── Word Bank ────────────────────────────────────────
+// ── Word Bank (8세 수준) ──────────────────────────────
 const WORD_BANK = {
   food: [
-    // 한식
-    '김치','비빔밥','떡볶이','불고기','삼겹살','냉면','된장찌개','김밥','순두부찌개','제육볶음',
-    '갈비탕','삼계탕','순대','잡채','해물파전','콩나물국밥','부대찌개','육개장','감자탕','곱창',
-    '닭갈비','낙지볶음','간장게장','보쌈','족발',
-    // 세계 음식
-    '피자','파스타','스시','햄버거','타코','라멘','팟타이','커리','크로와상','스테이크',
-    '티라미수','훠궈','감바스','나초','케밥','쌀국수','딤섬','팔라펠','구아카몰레','리조또',
-    '파에야','클램차우더','에그베네딕트','아사이볼','그라놀라',
-    // 디저트 & 음료
-    '마카롱','와플','아이스크림','버블티','달고나','약과','호떡','붕어빵','찹쌀도넛','꿀떡',
-    '에스프레소','카페라떼','말차','핫초코','레모네이드'
+    // 한식 (쉬운 것만)
+    '김치','밥','국수','라면','떡볶이','김밥','된장국','비빔밥','불고기','삼겹살',
+    '계란','두부','김치찌개','순두부','잡채',
+    // 세계 음식 (아이도 아는 것)
+    '피자','햄버거','스파게티','스시','초밥','타코','카레','샌드위치','팬케이크','와플',
+    '아이스크림','케이크','쿠키','도넛','초콜릿',
+    // 과일 & 채소
+    '사과','바나나','딸기','포도','수박','오렌지','레몬','망고','당근','브로콜리',
+    '토마토','감자','양파','옥수수','버섯',
+    // 음료 & 간식
+    '우유','주스','콜라','물','커피','팝콘','사탕','젤리','빵','치즈'
   ],
   celebrity: [
-    // K-pop 현재
-    'BTS 정국','블랙핑크 제니','뉴진스','aespa 카리나','스트레이 키즈','르세라핌','아이브','엔하이픈',
-    'TXT','샤이니 태민','빅뱅 지드래곤','2NE1 씨엘','싸이','BOL4 지민',
-    // 넷플릭스 & 한국 영화
-    '이정재','정호연','봉준호','송강호','마동석','박서준','공유','현빈',
-    // 세계 팝스타 & 셀럽
-    '테일러 스위프트','비욘세','레이디 가가','아리아나 그란데','빌리 아일리시','올리비아 로드리고',
-    '해리 스타일스','드레이크','켄드릭 라마','두아 리파','샘 스미스','에드 시런',
+    // K-pop (지금 유명한)
+    'BTS 정국','블랙핑크 제니','뉴진스','aespa 카리나','스트레이 키즈',
+    '르세라핌','아이브','TWS','세븐틴','NCT',
+    // 넷플릭스 & 영화
+    '이정재','정호연','봉준호','마동석','박서준',
+    // 세계적 팝스타
+    '테일러 스위프트','비욘세','레이디 가가','아리아나 그란데','빌리 아일리시',
+    '해리 스타일스','에드 시런','두아 리파','저스틴 비버','리아나',
     // 스포츠
-    '손흥민','류현진','김연아','르브론 제임스','크리스티아누 호날두','리오넬 메시','세레나 윌리엄스',
-    // 위인 & 역사
-    '세종대왕','아인슈타인','레오나르도 다빈치','모차르트','클레오파트라','마틴 루터 킹','나폴레옹',
-    '스티브 잡스','엘론 머스크','빌 게이츠','오프라 윈프리','말랄라 유사프자이'
+    '손흥민','르브론 제임스','크리스티아누 호날두','리오넬 메시','세레나 윌리엄스',
+    // 위인 (학교에서 배우는)
+    '아인슈타인','레오나르도 다빈치','모차르트','클레오파트라','마틴 루터 킹',
+    '나폴레옹','세종대왕','스티브 잡스','엘론 머스크','넬슨 만델라'
   ],
   meme: [
-    '국룰','TMI','갓생','소확행','극공','현타','덕질','꿀잼','빵터지다','인싸',
-    '아싸','찐이야','레전드','찐팬','엄근진','MBTI','케미','직관','최애','스불재',
-    '킹받다','억텐','꾸안꾸','반모','스밍','총공','뇨뇨','핵인싸','갑분싸','존맛탱',
-    '알잘딱깔센','TMT','별다줄','복세편살','점메추','캐바캐','팩폭','극호','방구석','취향저격',
-    '인생샷','감성','힐링','느낌아는형','고인물','뉴비','핵노잼','꿀팁','현생','ㅈㅂㅈㅇ'
+    // 누구나 아는 쉬운 것들
+    '국룰','TMI','갓생','소확행','현타','꿀잼','인싸','아싸','최애','케미',
+    '직관','덕질','찐이야','레전드','핵인싸','취향저격','힐링','감성','꿀팁','빵터지다',
+    '킹받다','갑분싸','존맛','팩폭','뉴비','고인물','스불재','TMT','인생샷','MBTI'
   ],
   daily: [
-    // 집 & 가전
-    '냉장고','세탁기','베개','이불','슬리퍼','칫솔','면도기','화분','리모컨','에어컨',
-    '전자레인지','가스레인지','수건','샴푸','청소기','선풍기','커튼','신발장','서랍','화장대',
-    // 문구 & 학용품
-    '형광펜','포스트잇','지우개','스테이플러','클립','노트북','이어폰','마우스','충전기','보조배터리',
-    // 음식 관련 도구
-    '도마','냄비','프라이팬','젓가락','집게','앞치마','도시락','물병','빨대','포장지',
-    // 의류 & 패션
-    '후드티','청바지','운동화','백팩','선글라스','모자','장갑','목도리','반지','귀걸이',
+    // 집 안 물건 (아이도 아는 것)
+    '냉장고','세탁기','침대','베개','이불','소파','책상','의자','텔레비전','컴퓨터',
+    '전화기','시계','달력','거울','칫솔',
+    // 학교/문구
+    '연필','지우개','가위','풀','책','공책','가방','색연필','자','스테이플러',
+    // 옷
+    '티셔츠','바지','치마','신발','양말','모자','장갑','목도리','코트','잠옷',
     // 교통 & 장소
-    '지하철','버스','자전거','킥보드','엘리베이터','에스컬레이터','편의점','카페','서점','약국',
-    // 기타 생활
-    '우산','손거울','로션','마스크','영수증','택배','비밀번호','알람','일기','가계부'
+    '버스','지하철','자동차','자전거','비행기','학교','병원','편의점','공원','도서관',
+    // 동물
+    '강아지','고양이','토끼','원숭이','코끼리','기린','펭귄','돌고래','독수리','사자'
   ],
   emotion: [
-    // 긍정
-    '설레다','뿌듯하다','두근두근','짜릿하다','흐뭇하다','다행이다','심쿵하다','뭉클하다','벅차다','황홀하다',
-    '신나다','홀가분하다','후련하다','뿌듯하다','포근하다',
-    // 부정
-    '억울하다','허탈하다','야속하다','얄밉다','지치다','실망하다','후회하다','서운하다',
-    '찜찜하다','울컥하다','부아가 치밀다','아찔하다','막막하다','답답하다','불안하다',
-    // 중립/복합
-    '쑥스럽다','그립다','당황하다','부끄럽다','어색하다','민망하다','멍하다','아리송하다',
-    '묘하다','갑갑하다','뭉클하다','애틋하다','외롭다','그리하다','간지럽다'
+    // 초등학생도 아는 감정
+    '기쁘다','슬프다','화나다','무섭다','신나다','부끄럽다','외롭다','그립다',
+    '피곤하다','배고프다','졸리다','설레다','당황하다','실망하다','후회하다',
+    '뿌듯하다','두근두근','짜릿하다','다행이다','지치다',
+    '억울하다','불안하다','행복하다','즐겁다','무기력하다'
   ],
   kpop: [
-    // 활동 관련
-    'BTS','블랙핑크','아이돌','무대','팬미팅','컴백','뮤직비디오','사인회','엔딩요정','입덕',
-    '탈덕','최애','차애','함성','응원봉','직캠','콘서트','쇼케이스','음방','수록곡',
-    // 팬덤 문화
-    '아미','블링크','케이팝','포카','앨범','티저','컨셉','비하인드','브이로그','챌린지',
-    '총공격','스밍','줄서기','팬클럽','팬레터','굿즈','포토북','한정판','리패키지','더블타이틀',
-    // 연습생 & 방송
-    '연습생','데뷔','오디션','프로듀스','엠카운트다운','인기가요','뮤직뱅크','쇼챔피언','가요대전','연말시상식',
-    // 기타
-    '칼군무','립싱크','라이브','훅','브릿지','아이돌학교','성장형','멀티포지션','유닛','월드투어'
+    // 팬이라면 기본으로 아는 것들
+    'BTS','블랙핑크','아이돌','무대','팬미팅','컴백','뮤직비디오','콘서트','응원봉','사인회',
+    '최애','입덕','앨범','팬클럽','데뷔',
+    '직캠','챌린지','굿즈','티저','안무',
+    '아미','블링크','케이팝','연습생','오디션',
+    '트와이스','엑소','샤이니','빅뱅','2NE1',
+    '음악방송','1위','인기가요','뮤직뱅크','쇼챔피언'
   ]
 };
+
+// ── LocalStorage 키 ──────────────────────────────────
+const RANKING_KEY = 'daye_quiz_ranking_v2';
+const SESSION_KEY = 'daye_quiz_session_v2';
 
 // ── State ────────────────────────────────────────────
 let selectedTopics = ['food'];
@@ -741,24 +548,64 @@ let totalTime = 300, timeLeft = 300;
 let timerInterval = null;
 let wordResults = [];
 
-// ── Topic chips ──────────────────────────────────────
-document.querySelectorAll('.topic-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    const t = chip.dataset.topic;
-    if (chip.classList.contains('selected')) {
-      if (selectedTopics.length === 1) {
-        chip.classList.add('shake');
-        setTimeout(() => chip.classList.remove('shake'), 500);
-        return;
-      }
-      chip.classList.remove('selected');
-      selectedTopics = selectedTopics.filter(x => x !== t);
-    } else {
-      chip.classList.add('selected');
-      selectedTopics.push(t);
+// ── 세션 저장/복원 ───────────────────────────────────
+function saveSession() {
+  try {
+    const session = {
+      studentName: document.getElementById('student-name').value,
+      teacherName: document.getElementById('teacher-name').value,
+      selectedTopics,
+      wordCount: document.getElementById('word-count').value,
+      timeLimit: document.getElementById('time-limit').value
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  } catch(e) {}
+}
+
+function restoreSession() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SESSION_KEY));
+    if (!s) return;
+    if (s.studentName) document.getElementById('student-name').value = s.studentName;
+    if (s.teacherName) document.getElementById('teacher-name').value = s.teacherName;
+    if (s.wordCount) document.getElementById('word-count').value = s.wordCount;
+    if (s.timeLimit) document.getElementById('time-limit').value = s.timeLimit;
+    if (s.selectedTopics && s.selectedTopics.length) {
+      // 칩 초기화
+      document.querySelectorAll('.topic-chip').forEach(c => c.classList.remove('selected'));
+      selectedTopics = s.selectedTopics;
+      s.selectedTopics.forEach(t => {
+        const chip = document.querySelector(`.topic-chip[data-topic="${t}"]`);
+        if (chip) chip.classList.add('selected');
+      });
     }
-  });
-});
+  } catch(e) {}
+}
+
+// ── Topic chips ──────────────────────────────────────
+function toggleTopic(chip) {
+  const t = chip.dataset.topic;
+  if (chip.classList.contains('selected')) {
+    if (selectedTopics.length === 1) {
+      chip.classList.add('shake');
+      setTimeout(() => chip.classList.remove('shake'), 500);
+      return;
+    }
+    chip.classList.remove('selected');
+    selectedTopics = selectedTopics.filter(x => x !== t);
+  } else {
+    chip.classList.add('selected');
+    selectedTopics.push(t);
+  }
+  saveSession();
+}
+window.toggleTopic = toggleTopic;
+
+// 이름 입력할 때마다 저장
+document.getElementById('student-name').addEventListener('input', saveSession);
+document.getElementById('teacher-name').addEventListener('input', saveSession);
+document.getElementById('word-count').addEventListener('change', saveSession);
+document.getElementById('time-limit').addEventListener('change', saveSession);
 
 // ── Helpers ──────────────────────────────────────────
 function shuffle(arr) {
@@ -779,6 +626,14 @@ function formatTime(s) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 // ── Game flow ────────────────────────────────────────
@@ -791,8 +646,7 @@ function startGame() {
     return;
   }
 
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+  saveSession();
 
   const count = parseInt(document.getElementById('word-count').value);
   totalTime = parseInt(document.getElementById('time-limit').value);
@@ -804,21 +658,19 @@ function startGame() {
 
   score = 0; passCount = 0; currentIndex = 0; wordResults = [];
   timeLeft = totalTime;
-  bgmPhraseIdx = 0;
 
   showScreen('screen-game');
+  resizeTimer();
   updateWord();
   startTimer();
-  startBGM();
 }
 
 function updateWord() {
   if (currentIndex >= wordList.length) { endGame(); return; }
-  const w = wordList[currentIndex];
   const el = document.getElementById('word-display');
   el.style.animation = 'none';
   requestAnimationFrame(() => {
-    el.textContent = w;
+    el.textContent = wordList[currentIndex];
     el.style.animation = '';
   });
   document.getElementById('word-num').textContent = `${currentIndex + 1} / ${wordList.length}`;
@@ -828,18 +680,14 @@ function updateWord() {
 }
 
 function answerCorrect() {
-  playCorrectSound();
   wordResults.push({ word: wordList[currentIndex], result: 'correct' });
-  score++;
-  currentIndex++;
+  score++; currentIndex++;
   updateWord();
 }
 
 function answerPass() {
-  playPassSound();
   wordResults.push({ word: wordList[currentIndex], result: 'pass' });
-  passCount++;
-  currentIndex++;
+  passCount++; currentIndex++;
   updateWord();
 }
 
@@ -863,9 +711,8 @@ function startTimer() {
   }, 1000);
 }
 
-function endGame() {
+async function endGame() {
   clearInterval(timerInterval);
-  stopBGM();
 
   const sName = document.getElementById('student-name').value.trim();
   const tName = document.getElementById('teacher-name').value.trim();
@@ -893,222 +740,142 @@ function endGame() {
     log.appendChild(div);
   }
 
-  addRankingEntry(sName, tName, score, wordList.length, totalTime);
+  await addRankingEntry(sName, tName, score, wordList.length, totalTime);
   showScreen('screen-result');
   if (score > 0) launchConfetti();
+  showToast('💾 기록이 저장됐어요!');
 }
 
 function restartGame() {
-  const sName = document.getElementById('result-student-name').textContent;
-  const tName = document.getElementById('result-teacher-name').textContent;
   showScreen('screen-setup');
-  document.getElementById('student-name').value = sName;
-  document.getElementById('teacher-name').value = tName;
 }
 
 function goHome() {
   showScreen('screen-setup');
 }
 
-  // 모바일 타이머 크기 조정
-  function resizeTimer() {
-    const isMobile = window.innerWidth <= 480;
-    const size = isMobile ? 90 : 120;
-    const r = isMobile ? 35 : 50;
-    const cx = isMobile ? 45 : 60;
-    const svg = document.querySelector('.timer-svg');
-    const bg = document.getElementById('timer-ring').previousElementSibling;
-    const ring = document.getElementById('timer-ring');
-    if (svg) { svg.setAttribute('width', size); svg.setAttribute('height', size); svg.setAttribute('viewBox', `0 0 ${size} ${size}`); }
-    if (bg) { bg.setAttribute('cx', cx); bg.setAttribute('cy', cx); bg.setAttribute('r', r); }
-    if (ring) {
-      ring.setAttribute('cx', cx); ring.setAttribute('cy', cx); ring.setAttribute('r', r);
-      const circ = 2 * Math.PI * r;
-      ring.setAttribute('stroke-dasharray', circ);
-      ring.style.strokeDasharray = circ;
-    }
-    document.querySelector('.timer-wrap').style.width = size + 'px';
-    document.querySelector('.timer-wrap').style.height = size + 'px';
+// ── 타이머 모바일 대응 ────────────────────────────────
+function resizeTimer() {
+  const isMobile = window.innerWidth <= 480;
+  const size = isMobile ? 90 : 120;
+  const r = isMobile ? 35 : 50;
+  const cx = isMobile ? 45 : 60;
+  const svg = document.querySelector('.timer-svg');
+  const bg = document.querySelector('.timer-bg');
+  const ring = document.getElementById('timer-ring');
+  if (svg) { svg.setAttribute('width', size); svg.setAttribute('height', size); svg.setAttribute('viewBox', `0 0 ${size} ${size}`); }
+  if (bg) { bg.setAttribute('cx', cx); bg.setAttribute('cy', cx); bg.setAttribute('r', r); }
+  if (ring) {
+    ring.setAttribute('cx', cx); ring.setAttribute('cy', cx); ring.setAttribute('r', r);
+    const circ = 2 * Math.PI * r;
+    ring.setAttribute('stroke-dasharray', circ);
+    ring.style.strokeDasharray = circ;
   }
-  resizeTimer();
-  window.addEventListener('resize', resizeTimer);
-const RANKING_KEY = 'speedquiz_ranking_v1';
+  const wrap = document.querySelector('.timer-wrap');
+  if (wrap) { wrap.style.width = size + 'px'; wrap.style.height = size + 'px'; }
+}
+resizeTimer();
+window.addEventListener('resize', resizeTimer);
 
-function loadRanking() {
-  try { return JSON.parse(localStorage.getItem(RANKING_KEY)) || []; }
-  catch { return []; }
+// ── Firebase Firestore 랭킹 ───────────────────────────
+var db = null;
+var rankingsCol = null;
+
+function initFirebase() {
+  if (rankingsCol) return true;
+  try {
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCnYRedQc1yqLmcm4cf-w2rhx57tJro2Pc",
+        authDomain: "korean-speedquiz.firebaseapp.com",
+        projectId: "korean-speedquiz",
+        storageBucket: "korean-speedquiz.firebasestorage.app",
+        messagingSenderId: "556281660374",
+        appId: "1:556281660374:web:ed5db79df2d975c941da77"
+      });
+    }
+    db = firebase.firestore();
+    rankingsCol = db.collection('rankings');
+    return true;
+  } catch(e) {
+    console.error('Firebase 초기화 실패:', e);
+    return false;
+  }
 }
 
-function saveRanking(records) {
-  try { localStorage.setItem(RANKING_KEY, JSON.stringify(records)); } catch {}
+async function addRankingEntry(student, teacher, score, total, timeLimitSec) {
+  if (!initFirebase()) { showToast('⚠️ Firebase 초기화 실패'); return; }
+  try {
+    await rankingsCol.add({
+      student, teacher, score, total,
+      timeLabel: Math.floor(timeLimitSec / 60) + '분',
+      date: new Date().toLocaleDateString('ko-KR', { month:'2-digit', day:'2-digit' }),
+      ts: Date.now()
+    });
+  } catch(e) {
+    console.warn('Firebase 저장 실패:', e);
+    showToast('⚠️ 저장 실패. 인터넷 연결을 확인해 주세요.');
+  }
 }
 
-function addRankingEntry(student, teacher, score, total, timeLimitSec) {
-  const records = loadRanking();
-  records.push({
-    student, teacher, score, total,
-    timeLabel: Math.floor(timeLimitSec / 60) + '분',
-    date: new Date().toLocaleDateString('ko-KR', { month:'2-digit', day:'2-digit' }),
-    ts: Date.now()
-  });
-  records.sort((a, b) => b.score - a.score);
-  saveRanking(records.slice(0, 30));
-}
-
-function renderRanking() {
-  const records = loadRanking();
+async function renderRanking() {
   const container = document.getElementById('ranking-list');
-  if (!records.length) {
-    container.innerHTML = '<div class="ranking-empty">아직 기록이 없어요 😊<br>게임을 먼저 해봐요!</div>';
+  if (!initFirebase()) {
+    container.innerHTML = '<div class="ranking-empty">⚠️ Firebase 연결 실패</div>';
     return;
   }
-  const medals = ['🥇','🥈','🥉'];
-  container.innerHTML = records.map((r, i) => {
-    const badgeClass = i < 3 ? `rank-${i+1}` : 'rank-other';
-    const badge = i < 3 ? medals[i] : `${i+1}위`;
-    return `<div class="ranking-row" style="animation-delay:${i*0.04}s">
-      <div class="rank-badge ${badgeClass}">${badge}</div>
-      <div class="rank-info">
-        <div class="rank-pair">✏️ ${r.student} &nbsp;·&nbsp; 👩‍🏫 ${r.teacher}</div>
-        <div class="rank-meta">${r.date} &nbsp;|&nbsp; ${r.timeLabel} &nbsp;|&nbsp; ${r.score}/${r.total}개 정답</div>
-      </div>
-      <div class="rank-score">${r.score}<span style="font-size:0.85rem;color:var(--mid)">점</span></div>
-    </div>`;
-  }).join('');
+  container.innerHTML = '<div class="ranking-empty">⏳ 불러오는 중...</div>';
+  try {
+    const snapshot = await rankingsCol.orderBy('score', 'desc').limit(50).get();
+    const records = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (!records.length) {
+      container.innerHTML = '<div class="ranking-empty">아직 기록이 없어요 😊<br>게임을 먼저 해봐요!</div>';
+      return;
+    }
+    const medals = ['🥇','🥈','🥉'];
+    container.innerHTML = records.map((r, i) => {
+      const badgeClass = i < 3 ? `rank-${i+1}` : 'rank-other';
+      const badge = i < 3 ? medals[i] : `${i+1}위`;
+      return `<div class="ranking-row" style="animation-delay:${i*0.04}s">
+        <div class="rank-badge ${badgeClass}">${badge}</div>
+        <div class="rank-info">
+          <div class="rank-pair">✏️ ${r.student} &nbsp;·&nbsp; 👩‍🏫 ${r.teacher}</div>
+          <div class="rank-meta">${r.date} &nbsp;|&nbsp; ${r.timeLabel} &nbsp;|&nbsp; ${r.score}/${r.total}개 정답</div>
+        </div>
+        <div class="rank-score">${r.score}<span style="font-size:0.85rem;color:var(--mid)">점</span></div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    console.error(e);
+    container.innerHTML = `<div class="ranking-empty">⚠️ 에러: ${e.message}</div>`;
+  }
 }
 
-function showRanking() {
-  renderRanking();
+async function showRanking() {
   showScreen('screen-ranking');
+  await renderRanking();
 }
 
-function confirmClear() {
-  document.getElementById('clear-confirm').style.display = 'block';
-}
+function confirmClear() { document.getElementById('clear-confirm').style.display = 'block'; }
+function cancelClear() { document.getElementById('clear-confirm').style.display = 'none'; }
 
-function cancelClear() {
+async function doCleart() {
   document.getElementById('clear-confirm').style.display = 'none';
+  if (!initFirebase()) return;
+  showToast('🗑️ 초기화 중...');
+  try {
+    const snapshot = await rankingsCol.get();
+    const batch = db.batch();
+    snapshot.docs.forEach(d => batch.delete(d.ref));
+    await batch.commit();
+    await renderRanking();
+    showToast('🗑️ 기록이 초기화됐어요');
+  } catch(e) {
+    showToast('⚠️ 초기화 실패');
+  }
 }
 
-function doCleart() {
-  saveRanking([]);
-  renderRanking();
-  document.getElementById('clear-confirm').style.display = 'none';
-}
-
-// ── Audio ────────────────────────────────────────────
-let audioCtx = null;
-let bgmPlaying = false;
-let muted = false;
-let bgmTimeout = null;
-let bgmPhraseIdx = 0;
-
-function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
-
-function toggleMute() {
-  muted = !muted;
-  document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊';
-  if (muted) stopBGM();
-  else if (bgmPlaying) playBGMPhrase();
-}
-
-function playCorrectSound() {
-  if (muted) return;
-  const ctx = getCtx();
-  [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'sine'; osc.frequency.value = freq;
-    const t = ctx.currentTime + i * 0.1;
-    gain.gain.setValueAtTime(0.25, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
-    osc.start(t); osc.stop(t + 0.25);
-  });
-}
-
-function playPassSound() {
-  if (muted) return;
-  const ctx = getCtx();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(440, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.2);
-  gain.gain.setValueAtTime(0.2, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-  osc.start(); osc.stop(ctx.currentTime + 0.25);
-}
-
-// 6-phrase varied BGM
-const BGM_PHRASES = [
-  // A: cheerful ascending
-  [{f:523.25,d:0.15},{f:587.33,d:0.15},{f:659.25,d:0.15},{f:783.99,d:0.2},
-   {f:880,d:0.25},{f:783.99,d:0.15},{f:698.46,d:0.15},{f:659.25,d:0.3}],
-  // B: bouncy syncopated
-  [{f:659.25,d:0.12},{f:659.25,d:0.12},{f:783.99,d:0.18},{f:698.46,d:0.12},
-   {f:659.25,d:0.18},{f:587.33,d:0.12},{f:523.25,d:0.12},{f:587.33,d:0.24}],
-  // C: tension builder descent
-  [{f:880,d:0.18},{f:830.61,d:0.12},{f:783.99,d:0.18},{f:739.99,d:0.12},
-   {f:698.46,d:0.18},{f:659.25,d:0.12},{f:622.25,d:0.12},{f:587.33,d:0.28}],
-  // D: triumphant jump
-  [{f:523.25,d:0.1},{f:659.25,d:0.1},{f:783.99,d:0.1},{f:1046.5,d:0.2},
-   {f:880,d:0.15},{f:783.99,d:0.1},{f:659.25,d:0.1},{f:523.25,d:0.35}],
-  // E: quick staccato
-  [{f:783.99,d:0.1},{f:698.46,d:0.1},{f:659.25,d:0.1},{f:587.33,d:0.1},
-   {f:659.25,d:0.1},{f:698.46,d:0.1},{f:783.99,d:0.1},{f:880,d:0.3}],
-  // F: calm bridge
-  [{f:523.25,d:0.25},{f:587.33,d:0.25},{f:523.25,d:0.25},{f:493.88,d:0.25},
-   {f:523.25,d:0.5}]
-];
-
-function playBGMPhrase() {
-  if (muted || !bgmPlaying) return;
-  const ctx = getCtx();
-  const phrase = BGM_PHRASES[bgmPhraseIdx];
-  bgmPhraseIdx = (bgmPhraseIdx + 1) % BGM_PHRASES.length;
-
-  let t = ctx.currentTime;
-  phrase.forEach(note => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'square'; osc.frequency.value = note.f;
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.065, t + 0.02);
-    gain.gain.setValueAtTime(0.065, t + note.d * 0.65);
-    gain.gain.linearRampToValueAtTime(0, t + note.d);
-    osc.start(t); osc.stop(t + note.d + 0.01);
-    t += note.d;
-  });
-  // Subtle bass accent
-  const bass = ctx.createOscillator();
-  const bassGain = ctx.createGain();
-  bass.connect(bassGain); bassGain.connect(ctx.destination);
-  bass.type = 'sine'; bass.frequency.value = phrase[0].f / 2;
-  bassGain.gain.setValueAtTime(0.04, ctx.currentTime);
-  bassGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-  bass.start(ctx.currentTime); bass.stop(ctx.currentTime + 0.3);
-
-  const dur = phrase.reduce((s, n) => s + n.d, 0) * 1000;
-  bgmTimeout = setTimeout(() => { if (bgmPlaying && !muted) playBGMPhrase(); }, dur);
-}
-
-function startBGM() {
-  bgmPlaying = true;
-  if (!muted) playBGMPhrase();
-}
-
-function stopBGM() {
-  bgmPlaying = false;
-  clearTimeout(bgmTimeout);
-}
-
-// ── Confetti ─────────────────────────────────────────
+// ── Confetti ──────────────────────────────────────────
 function launchConfetti() {
   const canvas = document.getElementById('confetti-canvas');
   const ctx = canvas.getContext('2d');
@@ -1117,8 +884,7 @@ function launchConfetti() {
   const colors = ['#FF6B9D','#FFB347','#7FDBDA','#C5A3FF','#FFE66D'];
   const pieces = Array.from({length:100}, () => ({
     x: Math.random() * canvas.width, y: -20,
-    r: Math.random() * 6 + 4,
-    color: colors[Math.floor(Math.random() * colors.length)],
+    r: Math.random() * 6 + 4, color: colors[Math.floor(Math.random() * colors.length)],
     vy: Math.random() * 3 + 2, vx: (Math.random() - 0.5) * 2,
     rot: Math.random() * 360, rotV: (Math.random() - 0.5) * 5
   }));
@@ -1126,23 +892,19 @@ function launchConfetti() {
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     pieces.forEach(p => {
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot * Math.PI / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.r, -p.r/2, p.r*2, p.r);
-      ctx.restore();
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color; ctx.fillRect(-p.r, -p.r/2, p.r*2, p.r); ctx.restore();
       p.x += p.vx; p.y += p.vy; p.rot += p.rotV;
     });
-    if (pieces.some(p => p.y < canvas.height + 20)) {
-      frame = requestAnimationFrame(draw);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    if (pieces.some(p => p.y < canvas.height + 20)) frame = requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   draw();
   setTimeout(() => { cancelAnimationFrame(frame); ctx.clearRect(0, 0, canvas.width, canvas.height); }, 4000);
 }
+
+// ── 시작 시 세션 복원 ─────────────────────────────────
+restoreSession();
 </script>
 </body>
 </html>
