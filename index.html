@@ -176,15 +176,18 @@ body::after {
 .word-num { margin-top:12px; font-size:0.8rem; color:#CCC; font-weight:800; }
 .progress-wrap { width:100%; max-width:520px; background:#EEE; border-radius:20px; height:8px; overflow:hidden; }
 .progress-bar { height:100%; background:linear-gradient(90deg, var(--pink), var(--lavender)); border-radius:20px; transition:width 0.4s ease; }
-.game-btns { display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; max-width:520px; }
-.btn-correct, .btn-pass {
-  padding:20px; border-radius:22px; border:none; cursor:pointer;
-  font-family:'Gaegu',cursive; font-size:2rem; font-weight:700;
+.game-btns { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; width:100%; max-width:520px; }
+.btn-correct, .btn-hint, .btn-pass {
+  padding:18px 8px; border-radius:22px; border:none; cursor:pointer;
+  font-family:'Gaegu',cursive; font-size:1.6rem; font-weight:700;
   transition:transform 0.15s, box-shadow 0.15s;
   display:flex; flex-direction:column; align-items:center; gap:4px;
 }
 .btn-correct { background:linear-gradient(135deg,#5EE89A,#00C9A7); color:white; box-shadow:0 6px 20px rgba(94,232,154,0.45); }
 .btn-correct:active { transform:scale(0.96); }
+.btn-hint { background:linear-gradient(135deg,var(--lavender),#A78BFA); color:white; box-shadow:0 6px 20px rgba(197,163,255,0.45); }
+.btn-hint:active { transform:scale(0.96); }
+.btn-hint.used { opacity:0.4; cursor:not-allowed; }
 .btn-pass { background:linear-gradient(135deg,#FFB347,#FF8C42); color:white; box-shadow:0 6px 20px rgba(255,179,71,0.45); }
 .btn-pass:active { transform:scale(0.96); }
 .btn-label { font-size:0.75rem; opacity:0.9; font-family:'Nanum Gothic',sans-serif; font-weight:800; }
@@ -275,8 +278,8 @@ body::after {
   .word-card { padding:28px 18px; min-height:130px; border-radius:22px; }
   .word-label { font-size:0.7rem; margin-bottom:10px; }
   .word-display { font-size:clamp(2rem,10vw,3rem); }
-  .game-btns { gap:10px; }
-  .btn-correct, .btn-pass { padding:16px 10px; font-size:1.6rem; border-radius:18px; }
+  .game-btns { gap:7px; }
+  .btn-correct, .btn-hint, .btn-pass { padding:13px 4px; font-size:1.3rem; border-radius:16px; }
   #screen-result { padding-top:60px; padding-bottom:30px; }
   .result-header { font-size:1.6rem; }
   .result-card { padding:20px 16px; border-radius:22px; }
@@ -302,7 +305,6 @@ body::after {
 <!-- SCREEN 1: Setup -->
 <div id="screen-setup" class="screen active">
   <div class="logo">🎯 한국어 스피드퀴즈</div>
-  <p class="logo-sub">가자! 파이팅! 🔥</p>
 
   <div class="card">
     <div class="section-title">👤 이름 입력</div>
@@ -381,12 +383,16 @@ body::after {
   <div class="word-card">
     <div class="word-label">📖 이 단어를 설명해 보세요!</div>
     <div class="word-display" id="word-display">—</div>
+    <div id="hint-text" style="margin-top:10px;font-size:1rem;font-weight:800;color:var(--lavender);min-height:24px;"></div>
     <div class="word-num" id="word-num"></div>
   </div>
 
   <div class="game-btns">
     <button class="btn-correct" onclick="answerCorrect()">
       ⭕ <span class="btn-label">정답!</span>
+    </button>
+    <button class="btn-hint" onclick="useHint()">
+      💡 <span class="btn-label">힌트 (영어)</span>
     </button>
     <button class="btn-pass" onclick="answerPass()">
       ➡️ <span class="btn-label">패스</span>
@@ -417,7 +423,7 @@ body::after {
       </div>
     </div>
     <hr class="divider">
-    <div class="result-details">
+    <div class="result-details" style="grid-template-columns:repeat(4,1fr)">
       <div class="detail-box">
         <span class="detail-num" id="res-correct">0</span>
         <span class="detail-label">✅ 정답</span>
@@ -425,6 +431,10 @@ body::after {
       <div class="detail-box">
         <span class="detail-num" id="res-pass">0</span>
         <span class="detail-label">⏭️ 패스</span>
+      </div>
+      <div class="detail-box">
+        <span class="detail-num" id="res-hint">0</span>
+        <span class="detail-label">💡 힌트</span>
       </div>
       <div class="detail-box">
         <span class="detail-num" id="res-total">0</span>
@@ -440,6 +450,7 @@ body::after {
     <button class="btn-restart" onclick="restartGame()">🔄 다시 하기</button>
     <button class="btn-restart" style="background:linear-gradient(135deg,var(--lavender),var(--pink));box-shadow:0 6px 20px rgba(197,163,255,0.5)" onclick="goHome()">🏠 처음으로</button>
     <button class="btn-restart" style="background:linear-gradient(135deg,var(--peach),#FF8C42);box-shadow:0 6px 20px rgba(255,179,71,0.5)" onclick="showRanking()">🏆 랭킹 보기</button>
+    <button class="btn-restart" id="btn-share" style="background:linear-gradient(135deg,#43C6AC,#191654);box-shadow:0 6px 20px rgba(67,198,172,0.5)" onclick="shareResult()">🔗 결과 공유</button>
   </div>
 </div>
 
@@ -469,70 +480,62 @@ body::after {
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 <script>
-// ── Word Bank (8세 수준) ──────────────────────────────
+// ── Word Bank (단어: 영어힌트) ────────────────────────
 const WORD_BANK = {
   food: [
-    // 한식 (쉬운 것만)
-    '김치','밥','국수','라면','떡볶이','김밥','된장국','비빔밥','불고기','삼겹살',
-    '계란','두부','김치찌개','순두부','잡채',
-    // 세계 음식 (아이도 아는 것)
-    '피자','햄버거','스파게티','스시','초밥','타코','카레','샌드위치','팬케이크','와플',
-    '아이스크림','케이크','쿠키','도넛','초콜릿',
-    // 과일 & 채소
-    '사과','바나나','딸기','포도','수박','오렌지','레몬','망고','당근','브로콜리',
-    '토마토','감자','양파','옥수수','버섯',
-    // 음료 & 간식
-    '우유','주스','콜라','물','커피','팝콘','사탕','젤리','빵','치즈'
+    {w:'김치',h:'Kimchi'},{w:'밥',h:'Rice'},{w:'국수',h:'Noodles'},{w:'라면',h:'Ramen'},{w:'떡볶이',h:'Spicy rice cake'},
+    {w:'김밥',h:'Rice roll'},{w:'된장국',h:'Soybean paste soup'},{w:'비빔밥',h:'Mixed rice bowl'},{w:'불고기',h:'Grilled beef'},{w:'삼겹살',h:'Pork belly'},
+    {w:'계란',h:'Egg'},{w:'두부',h:'Tofu'},{w:'김치찌개',h:'Kimchi stew'},{w:'잡채',h:'Glass noodles stir-fry'},{w:'피자',h:'Pizza'},
+    {w:'햄버거',h:'Hamburger'},{w:'스파게티',h:'Spaghetti'},{w:'스시',h:'Sushi'},{w:'타코',h:'Taco'},{w:'카레',h:'Curry'},
+    {w:'샌드위치',h:'Sandwich'},{w:'팬케이크',h:'Pancake'},{w:'와플',h:'Waffle'},{w:'아이스크림',h:'Ice cream'},{w:'케이크',h:'Cake'},
+    {w:'쿠키',h:'Cookie'},{w:'도넛',h:'Donut'},{w:'초콜릿',h:'Chocolate'},{w:'사과',h:'Apple'},{w:'바나나',h:'Banana'},
+    {w:'딸기',h:'Strawberry'},{w:'포도',h:'Grapes'},{w:'수박',h:'Watermelon'},{w:'오렌지',h:'Orange'},{w:'레몬',h:'Lemon'},
+    {w:'망고',h:'Mango'},{w:'당근',h:'Carrot'},{w:'브로콜리',h:'Broccoli'},{w:'토마토',h:'Tomato'},{w:'감자',h:'Potato'},
+    {w:'양파',h:'Onion'},{w:'옥수수',h:'Corn'},{w:'버섯',h:'Mushroom'},{w:'우유',h:'Milk'},{w:'주스',h:'Juice'},
+    {w:'콜라',h:'Cola'},{w:'물',h:'Water'},{w:'커피',h:'Coffee'},{w:'팝콘',h:'Popcorn'},{w:'빵',h:'Bread'}
   ],
   celebrity: [
-    // K-pop (지금 유명한)
-    'BTS 정국','블랙핑크 제니','뉴진스','aespa 카리나','스트레이 키즈',
-    '르세라핌','아이브','TWS','세븐틴','NCT',
-    // 넷플릭스 & 영화
-    '이정재','정호연','봉준호','마동석','박서준',
-    // 세계적 팝스타
-    '테일러 스위프트','비욘세','레이디 가가','아리아나 그란데','빌리 아일리시',
-    '해리 스타일스','에드 시런','두아 리파','저스틴 비버','리아나',
-    // 스포츠
-    '손흥민','르브론 제임스','크리스티아누 호날두','리오넬 메시','세레나 윌리엄스',
-    // 위인 (학교에서 배우는)
-    '아인슈타인','레오나르도 다빈치','모차르트','클레오파트라','마틴 루터 킹',
-    '나폴레옹','세종대왕','스티브 잡스','엘론 머스크','넬슨 만델라'
+    {w:'BTS 정국',h:'BTS Jungkook'},{w:'블랙핑크 제니',h:'BLACKPINK Jennie'},{w:'뉴진스',h:'NewJeans'},{w:'aespa 카리나',h:'aespa Karina'},{w:'스트레이 키즈',h:'Stray Kids'},
+    {w:'르세라핌',h:'LE SSERAFIM'},{w:'아이브',h:'IVE'},{w:'세븐틴',h:'Seventeen'},{w:'이정재',h:'Lee Jung-jae'},{w:'정호연',h:'Jung Ho-yeon'},
+    {w:'봉준호',h:'Bong Joon-ho'},{w:'마동석',h:'Don Lee'},{w:'테일러 스위프트',h:'Taylor Swift'},{w:'비욘세',h:'Beyoncé'},{w:'레이디 가가',h:'Lady Gaga'},
+    {w:'아리아나 그란데',h:'Ariana Grande'},{w:'빌리 아일리시',h:'Billie Eilish'},{w:'해리 스타일스',h:'Harry Styles'},{w:'에드 시런',h:'Ed Sheeran'},{w:'두아 리파',h:'Dua Lipa'},
+    {w:'저스틴 비버',h:'Justin Bieber'},{w:'손흥민',h:'Son Heung-min'},{w:'르브론 제임스',h:'LeBron James'},{w:'크리스티아누 호날두',h:'Cristiano Ronaldo'},{w:'리오넬 메시',h:'Lionel Messi'},
+    {w:'아인슈타인',h:'Einstein'},{w:'레오나르도 다빈치',h:'Leonardo da Vinci'},{w:'모차르트',h:'Mozart'},{w:'클레오파트라',h:'Cleopatra'},{w:'마틴 루터 킹',h:'Martin Luther King'},
+    {w:'세종대왕',h:'King Sejong'},{w:'스티브 잡스',h:'Steve Jobs'},{w:'엘론 머스크',h:'Elon Musk'},{w:'넬슨 만델라',h:'Nelson Mandela'},{w:'나폴레옹',h:'Napoleon'}
   ],
   meme: [
-    // 누구나 아는 쉬운 것들
-    '국룰','TMI','갓생','소확행','현타','꿀잼','인싸','아싸','최애','케미',
-    '직관','덕질','찐이야','레전드','핵인싸','취향저격','힐링','감성','꿀팁','빵터지다',
-    '킹받다','갑분싸','존맛','팩폭','뉴비','고인물','스불재','TMT','인생샷','MBTI'
+    {w:'국룰',h:'Common rule / unwritten rule'},{w:'TMI',h:'Too much information'},{w:'갓생',h:'God-like productive life'},{w:'소확행',h:'Small but certain happiness'},{w:'현타',h:'Reality check / coming back to reality'},
+    {w:'꿀잼',h:'Super fun / honey fun'},{w:'인싸',h:'Insider / popular person'},{w:'아싸',h:'Outsider / loner'},{w:'최애',h:'Favorite (person)'},{w:'케미',h:'Chemistry'},
+    {w:'직관',h:'Attending a live event'},{w:'덕질',h:'Fandom activities'},{w:'찐이야',h:'It\'s real / genuine'},{w:'레전드',h:'Legend'},{w:'핵인싸',h:'Super popular person'},
+    {w:'취향저격',h:'Exactly my taste'},{w:'힐링',h:'Healing / relaxing'},{w:'꿀팁',h:'Honey tip / great tip'},{w:'빵터지다',h:'Burst out laughing'},{w:'킹받다',h:'So annoying'},
+    {w:'갑분싸',h:'Suddenly awkward atmosphere'},{w:'존맛',h:'Incredibly delicious'},{w:'팩폭',h:'Fact bomb / harsh truth'},{w:'인생샷',h:'Best photo of your life'},{w:'MBTI',h:'MBTI personality type'}
   ],
   daily: [
-    // 집 안 물건 (아이도 아는 것)
-    '냉장고','세탁기','침대','베개','이불','소파','책상','의자','텔레비전','컴퓨터',
-    '전화기','시계','달력','거울','칫솔',
-    // 학교/문구
-    '연필','지우개','가위','풀','책','공책','가방','색연필','자','스테이플러',
-    // 옷
-    '티셔츠','바지','치마','신발','양말','모자','장갑','목도리','코트','잠옷',
-    // 교통 & 장소
-    '버스','지하철','자동차','자전거','비행기','학교','병원','편의점','공원','도서관',
-    // 동물
-    '강아지','고양이','토끼','원숭이','코끼리','기린','펭귄','돌고래','독수리','사자'
+    {w:'냉장고',h:'Refrigerator'},{w:'세탁기',h:'Washing machine'},{w:'침대',h:'Bed'},{w:'베개',h:'Pillow'},{w:'이불',h:'Blanket / comforter'},
+    {w:'소파',h:'Sofa'},{w:'책상',h:'Desk'},{w:'의자',h:'Chair'},{w:'텔레비전',h:'Television'},{w:'컴퓨터',h:'Computer'},
+    {w:'전화기',h:'Phone'},{w:'시계',h:'Clock / watch'},{w:'달력',h:'Calendar'},{w:'거울',h:'Mirror'},{w:'칫솔',h:'Toothbrush'},
+    {w:'연필',h:'Pencil'},{w:'지우개',h:'Eraser'},{w:'가위',h:'Scissors'},{w:'풀',h:'Glue'},{w:'책',h:'Book'},
+    {w:'공책',h:'Notebook'},{w:'가방',h:'Bag'},{w:'색연필',h:'Colored pencil'},{w:'티셔츠',h:'T-shirt'},{w:'바지',h:'Pants'},
+    {w:'치마',h:'Skirt'},{w:'신발',h:'Shoes'},{w:'양말',h:'Socks'},{w:'모자',h:'Hat'},{w:'장갑',h:'Gloves'},
+    {w:'목도리',h:'Scarf'},{w:'코트',h:'Coat'},{w:'버스',h:'Bus'},{w:'지하철',h:'Subway'},{w:'자동차',h:'Car'},
+    {w:'자전거',h:'Bicycle'},{w:'비행기',h:'Airplane'},{w:'학교',h:'School'},{w:'병원',h:'Hospital'},{w:'공원',h:'Park'},
+    {w:'강아지',h:'Puppy / dog'},{w:'고양이',h:'Cat'},{w:'토끼',h:'Rabbit'},{w:'원숭이',h:'Monkey'},{w:'코끼리',h:'Elephant'},
+    {w:'기린',h:'Giraffe'},{w:'펭귄',h:'Penguin'},{w:'돌고래',h:'Dolphin'},{w:'독수리',h:'Eagle'},{w:'사자',h:'Lion'}
   ],
   emotion: [
-    // 초등학생도 아는 감정
-    '기쁘다','슬프다','화나다','무섭다','신나다','부끄럽다','외롭다','그립다',
-    '피곤하다','배고프다','졸리다','설레다','당황하다','실망하다','후회하다',
-    '뿌듯하다','두근두근','짜릿하다','다행이다','지치다',
-    '억울하다','불안하다','행복하다','즐겁다','무기력하다'
+    {w:'기쁘다',h:'Happy'},{w:'슬프다',h:'Sad'},{w:'화나다',h:'Angry'},{w:'무섭다',h:'Scared'},{w:'신나다',h:'Excited'},
+    {w:'부끄럽다',h:'Embarrassed'},{w:'외롭다',h:'Lonely'},{w:'그립다',h:'Miss someone'},{w:'피곤하다',h:'Tired'},{w:'배고프다',h:'Hungry'},
+    {w:'졸리다',h:'Sleepy'},{w:'설레다',h:'Excited / flutter'},{w:'당황하다',h:'Flustered'},{w:'실망하다',h:'Disappointed'},{w:'후회하다',h:'Regret'},
+    {w:'뿌듯하다',h:'Proud'},{w:'두근두근',h:'Heart pounding'},{w:'짜릿하다',h:'Thrilling'},{w:'다행이다',h:'Relieved'},{w:'지치다',h:'Exhausted'},
+    {w:'억울하다',h:'Unfair / wronged'},{w:'불안하다',h:'Anxious'},{w:'행복하다',h:'Happy'},{w:'즐겁다',h:'Joyful'},{w:'무기력하다',h:'Lethargic'}
   ],
   kpop: [
-    // 팬이라면 기본으로 아는 것들
-    'BTS','블랙핑크','아이돌','무대','팬미팅','컴백','뮤직비디오','콘서트','응원봉','사인회',
-    '최애','입덕','앨범','팬클럽','데뷔',
-    '직캠','챌린지','굿즈','티저','안무',
-    '아미','블링크','케이팝','연습생','오디션',
-    '트와이스','엑소','샤이니','빅뱅','2NE1',
-    '음악방송','1위','인기가요','뮤직뱅크','쇼챔피언'
+    {w:'BTS',h:'BTS'},{w:'블랙핑크',h:'BLACKPINK'},{w:'아이돌',h:'Idol'},{w:'무대',h:'Stage'},{w:'팬미팅',h:'Fan meeting'},
+    {w:'컴백',h:'Comeback'},{w:'뮤직비디오',h:'Music video'},{w:'콘서트',h:'Concert'},{w:'응원봉',h:'Light stick'},{w:'사인회',h:'Autograph event'},
+    {w:'최애',h:'Favorite member'},{w:'입덕',h:'Becoming a fan'},{w:'앨범',h:'Album'},{w:'팬클럽',h:'Fan club'},{w:'데뷔',h:'Debut'},
+    {w:'직캠',h:'Fancam'},{w:'챌린지',h:'Dance challenge'},{w:'굿즈',h:'Merchandise'},{w:'티저',h:'Teaser'},{w:'안무',h:'Choreography'},
+    {w:'아미',h:'ARMY (BTS fans)'},{w:'블링크',h:'BLINK (BLACKPINK fans)'},{w:'연습생',h:'Trainee'},{w:'오디션',h:'Audition'},{w:'트와이스',h:'TWICE'},
+    {w:'음악방송',h:'Music show'},{w:'1위',h:'Number one'},{w:'인기가요',h:'Inkigayo (music show)'},{w:'뮤직뱅크',h:'Music Bank'},{w:'월드투어',h:'World tour'}
   ]
 };
 
@@ -543,7 +546,7 @@ const SESSION_KEY = 'daye_quiz_session_v2';
 // ── State ────────────────────────────────────────────
 let selectedTopics = ['food'];
 let wordList = [], currentIndex = 0;
-let score = 0, passCount = 0;
+let score = 0, passCount = 0, hintCount = 0;
 let totalTime = 300, timeLeft = 300;
 let timerInterval = null;
 let wordResults = [];
@@ -656,7 +659,7 @@ function startGame() {
   pool = shuffle(pool);
   wordList = pool.slice(0, Math.min(count, pool.length));
 
-  score = 0; passCount = 0; currentIndex = 0; wordResults = [];
+  score = 0; passCount = 0; hintCount = 0; currentIndex = 0; wordResults = [];
   timeLeft = totalTime;
 
   showScreen('screen-game');
@@ -667,12 +670,19 @@ function startGame() {
 
 function updateWord() {
   if (currentIndex >= wordList.length) { endGame(); return; }
+  const item = wordList[currentIndex];
   const el = document.getElementById('word-display');
   el.style.animation = 'none';
   requestAnimationFrame(() => {
-    el.textContent = wordList[currentIndex];
+    el.textContent = item.w;
     el.style.animation = '';
   });
+  // 힌트 초기화
+  const hintEl = document.getElementById('hint-text');
+  hintEl.textContent = '';
+  const hintBtn = document.querySelector('.btn-hint');
+  if (hintBtn) { hintBtn.classList.remove('used'); hintBtn.disabled = false; }
+
   document.getElementById('word-num').textContent = `${currentIndex + 1} / ${wordList.length}`;
   document.getElementById('progress-bar').style.width = ((currentIndex / wordList.length) * 100) + '%';
   document.getElementById('live-score').textContent = score;
@@ -680,15 +690,25 @@ function updateWord() {
 }
 
 function answerCorrect() {
-  wordResults.push({ word: wordList[currentIndex], result: 'correct' });
+  wordResults.push({ word: wordList[currentIndex].w, result: 'correct' });
   score++; currentIndex++;
   updateWord();
 }
 
 function answerPass() {
-  wordResults.push({ word: wordList[currentIndex], result: 'pass' });
+  wordResults.push({ word: wordList[currentIndex].w, result: 'pass' });
   passCount++; currentIndex++;
   updateWord();
+}
+
+function useHint() {
+  const hintBtn = document.querySelector('.btn-hint');
+  if (hintBtn.classList.contains('used')) return;
+  const item = wordList[currentIndex];
+  document.getElementById('hint-text').textContent = '💡 ' + item.h;
+  hintBtn.classList.add('used');
+  hintBtn.disabled = true;
+  hintCount++;
 }
 
 function startTimer() {
@@ -723,6 +743,7 @@ async function endGame() {
     score >= wordList.length * 0.7 ? `🎉 대단해요, ${sName}!` : `💪 수고했어요, ${sName}!`;
   document.getElementById('res-correct').textContent = score;
   document.getElementById('res-pass').textContent = passCount;
+  document.getElementById('res-hint').textContent = hintCount;
   document.getElementById('res-total').textContent = wordList.length;
 
   const log = document.getElementById('word-log');
@@ -736,7 +757,7 @@ async function endGame() {
   for (let i = currentIndex; i < wordList.length; i++) {
     const div = document.createElement('div');
     div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:#F5F5F5;font-weight:800;font-size:0.9rem;color:#AAA`;
-    div.innerHTML = `<span>${wordList[i]}</span><span>미도달</span>`;
+    div.innerHTML = `<span>${wordList[i].w}</span><span>미도달</span>`;
     log.appendChild(div);
   }
 
@@ -903,8 +924,76 @@ function launchConfetti() {
   setTimeout(() => { cancelAnimationFrame(frame); ctx.clearRect(0, 0, canvas.width, canvas.height); }, 4000);
 }
 
-// ── 시작 시 세션 복원 ─────────────────────────────────
+// ── 결과 공유 ─────────────────────────────────────────
+function shareResult() {
+  const student = document.getElementById('result-student-name').textContent;
+  const teacher = document.getElementById('result-teacher-name').textContent;
+  const correct = document.getElementById('res-correct').textContent;
+  const pass    = document.getElementById('res-pass').textContent;
+  const total   = document.getElementById('res-total').textContent;
+
+  const params = new URLSearchParams({ student, teacher, correct, pass, total });
+  const url = location.origin + location.pathname + '?' + params.toString();
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url)
+      .then(() => showToast('🔗 링크가 복사됐어요!'))
+      .catch(() => fallbackCopy(url));
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(url) {
+  const el = document.createElement('textarea');
+  el.value = url;
+  el.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+  document.body.appendChild(el);
+  el.focus(); el.select();
+  try {
+    document.execCommand('copy');
+    showToast('🔗 링크가 복사됐어요!');
+  } catch(e) {
+    showToast('❌ 복사 실패 - 직접 URL을 복사해 주세요');
+  }
+  document.body.removeChild(el);
+}
+
+// ── URL 파라미터로 공유된 결과 표시 ──────────────────
+function checkSharedResult() {
+  const params = new URLSearchParams(location.search);
+  if (!params.has('student')) return;
+
+  const student = params.get('student');
+  const teacher = params.get('teacher');
+  const correct = params.get('correct');
+  const pass    = params.get('pass');
+  const total   = params.get('total');
+
+  document.getElementById('result-student-name').textContent = student;
+  document.getElementById('result-teacher-name').textContent = teacher;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-pass').textContent    = pass;
+  document.getElementById('res-total').textContent   = total;
+  document.getElementById('result-header').textContent =
+    parseInt(correct) >= parseInt(total) * 0.7
+      ? `🎉 대단해요, ${student}!`
+      : `💪 수고했어요, ${student}!`;
+
+  // 단어 기록은 공유 링크에 없으므로 숨기기
+  document.getElementById('word-log').innerHTML =
+    '<div style="text-align:center;color:#CCC;font-size:0.85rem;font-weight:800;padding:12px">공유된 결과예요 😊</div>';
+
+  // 공유 결과 화면에서는 다시하기/공유 버튼 숨기기
+  document.getElementById('btn-share').style.display = 'none';
+
+  showScreen('screen-result');
+  if (parseInt(correct) > 0) launchConfetti();
+}
+
+// ── 시작 시 세션 복원 & 공유 결과 확인 ──────────────
 restoreSession();
+checkSharedResult();
 </script>
 </body>
 </html>
