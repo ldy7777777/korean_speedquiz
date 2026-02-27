@@ -483,59 +483,119 @@ body::after {
 // ── Word Bank (단어: 영어힌트) ────────────────────────
 const WORD_BANK = {
   food: [
+    // 한식
     {w:'김치',h:'Kimchi'},{w:'밥',h:'Rice'},{w:'국수',h:'Noodles'},{w:'라면',h:'Ramen'},{w:'떡볶이',h:'Spicy rice cake'},
     {w:'김밥',h:'Rice roll'},{w:'된장국',h:'Soybean paste soup'},{w:'비빔밥',h:'Mixed rice bowl'},{w:'불고기',h:'Grilled beef'},{w:'삼겹살',h:'Pork belly'},
-    {w:'계란',h:'Egg'},{w:'두부',h:'Tofu'},{w:'김치찌개',h:'Kimchi stew'},{w:'잡채',h:'Glass noodles stir-fry'},{w:'피자',h:'Pizza'},
-    {w:'햄버거',h:'Hamburger'},{w:'스파게티',h:'Spaghetti'},{w:'스시',h:'Sushi'},{w:'타코',h:'Taco'},{w:'카레',h:'Curry'},
-    {w:'샌드위치',h:'Sandwich'},{w:'팬케이크',h:'Pancake'},{w:'와플',h:'Waffle'},{w:'아이스크림',h:'Ice cream'},{w:'케이크',h:'Cake'},
-    {w:'쿠키',h:'Cookie'},{w:'도넛',h:'Donut'},{w:'초콜릿',h:'Chocolate'},{w:'사과',h:'Apple'},{w:'바나나',h:'Banana'},
-    {w:'딸기',h:'Strawberry'},{w:'포도',h:'Grapes'},{w:'수박',h:'Watermelon'},{w:'오렌지',h:'Orange'},{w:'레몬',h:'Lemon'},
-    {w:'망고',h:'Mango'},{w:'당근',h:'Carrot'},{w:'브로콜리',h:'Broccoli'},{w:'토마토',h:'Tomato'},{w:'감자',h:'Potato'},
-    {w:'양파',h:'Onion'},{w:'옥수수',h:'Corn'},{w:'버섯',h:'Mushroom'},{w:'우유',h:'Milk'},{w:'주스',h:'Juice'},
-    {w:'콜라',h:'Cola'},{w:'물',h:'Water'},{w:'커피',h:'Coffee'},{w:'팝콘',h:'Popcorn'},{w:'빵',h:'Bread'}
+    {w:'계란',h:'Egg'},{w:'두부',h:'Tofu'},{w:'김치찌개',h:'Kimchi stew'},{w:'잡채',h:'Glass noodles'},{w:'순두부',h:'Soft tofu soup'},
+    {w:'떡',h:'Rice cake'},{w:'만두',h:'Dumpling'},{w:'잡채',h:'Glass noodles stir-fry'},{w:'육개장',h:'Spicy beef soup'},{w:'갈비',h:'Ribs'},
+    {w:'치킨',h:'Fried chicken'},{w:'짜장면',h:'Black bean noodles'},{w:'짬뽕',h:'Spicy seafood noodles'},{w:'순대',h:'Blood sausage'},{w:'떡국',h:'Rice cake soup'},
+    // 세계 음식
+    {w:'피자',h:'Pizza'},{w:'햄버거',h:'Hamburger'},{w:'스파게티',h:'Spaghetti'},{w:'스시',h:'Sushi'},{w:'타코',h:'Taco'},
+    {w:'카레',h:'Curry'},{w:'샌드위치',h:'Sandwich'},{w:'팬케이크',h:'Pancake'},{w:'와플',h:'Waffle'},{w:'핫도그',h:'Hot dog'},
+    {w:'치즈버거',h:'Cheeseburger'},{w:'프라이드치킨',h:'Fried chicken'},{w:'나초',h:'Nachos'},{w:'볶음밥',h:'Fried rice'},{w:'샐러드',h:'Salad'},
+    // 디저트 & 간식
+    {w:'아이스크림',h:'Ice cream'},{w:'케이크',h:'Cake'},{w:'쿠키',h:'Cookie'},{w:'도넛',h:'Donut'},{w:'초콜릿',h:'Chocolate'},
+    {w:'사탕',h:'Candy'},{w:'젤리',h:'Jelly'},{w:'팝콘',h:'Popcorn'},{w:'빵',h:'Bread'},{w:'마카롱',h:'Macaron'},
+    {w:'푸딩',h:'Pudding'},{w:'파이',h:'Pie'},{w:'머핀',h:'Muffin'},{w:'치즈케이크',h:'Cheesecake'},{w:'아이스바',h:'Ice bar'},
+    // 과일
+    {w:'사과',h:'Apple'},{w:'바나나',h:'Banana'},{w:'딸기',h:'Strawberry'},{w:'포도',h:'Grapes'},{w:'수박',h:'Watermelon'},
+    {w:'오렌지',h:'Orange'},{w:'레몬',h:'Lemon'},{w:'망고',h:'Mango'},{w:'복숭아',h:'Peach'},{w:'체리',h:'Cherry'},
+    {w:'파인애플',h:'Pineapple'},{w:'키위',h:'Kiwi'},{w:'블루베리',h:'Blueberry'},{w:'멜론',h:'Melon'},{w:'자두',h:'Plum'},
+    // 채소
+    {w:'당근',h:'Carrot'},{w:'브로콜리',h:'Broccoli'},{w:'토마토',h:'Tomato'},{w:'감자',h:'Potato'},{w:'양파',h:'Onion'},
+    {w:'옥수수',h:'Corn'},{w:'버섯',h:'Mushroom'},{w:'오이',h:'Cucumber'},{w:'시금치',h:'Spinach'},{w:'콩',h:'Bean'},
+    // 음료
+    {w:'우유',h:'Milk'},{w:'주스',h:'Juice'},{w:'콜라',h:'Cola'},{w:'물',h:'Water'},{w:'커피',h:'Coffee'},
+    {w:'녹차',h:'Green tea'},{w:'레모네이드',h:'Lemonade'},{w:'스무디',h:'Smoothie'},{w:'핫초코',h:'Hot chocolate'},{w:'요구르트',h:'Yogurt'}
   ],
   celebrity: [
+    // K-pop 현재
     {w:'BTS 정국',h:'BTS Jungkook'},{w:'블랙핑크 제니',h:'BLACKPINK Jennie'},{w:'뉴진스',h:'NewJeans'},{w:'aespa 카리나',h:'aespa Karina'},{w:'스트레이 키즈',h:'Stray Kids'},
-    {w:'르세라핌',h:'LE SSERAFIM'},{w:'아이브',h:'IVE'},{w:'세븐틴',h:'Seventeen'},{w:'이정재',h:'Lee Jung-jae'},{w:'정호연',h:'Jung Ho-yeon'},
-    {w:'봉준호',h:'Bong Joon-ho'},{w:'마동석',h:'Don Lee'},{w:'테일러 스위프트',h:'Taylor Swift'},{w:'비욘세',h:'Beyoncé'},{w:'레이디 가가',h:'Lady Gaga'},
-    {w:'아리아나 그란데',h:'Ariana Grande'},{w:'빌리 아일리시',h:'Billie Eilish'},{w:'해리 스타일스',h:'Harry Styles'},{w:'에드 시런',h:'Ed Sheeran'},{w:'두아 리파',h:'Dua Lipa'},
-    {w:'저스틴 비버',h:'Justin Bieber'},{w:'손흥민',h:'Son Heung-min'},{w:'르브론 제임스',h:'LeBron James'},{w:'크리스티아누 호날두',h:'Cristiano Ronaldo'},{w:'리오넬 메시',h:'Lionel Messi'},
-    {w:'아인슈타인',h:'Einstein'},{w:'레오나르도 다빈치',h:'Leonardo da Vinci'},{w:'모차르트',h:'Mozart'},{w:'클레오파트라',h:'Cleopatra'},{w:'마틴 루터 킹',h:'Martin Luther King'},
-    {w:'세종대왕',h:'King Sejong'},{w:'스티브 잡스',h:'Steve Jobs'},{w:'엘론 머스크',h:'Elon Musk'},{w:'넬슨 만델라',h:'Nelson Mandela'},{w:'나폴레옹',h:'Napoleon'}
+    {w:'르세라핌',h:'LE SSERAFIM'},{w:'아이브',h:'IVE'},{w:'세븐틴',h:'Seventeen'},{w:'엔하이픈',h:'ENHYPEN'},{w:'투어스',h:'TWS'},
+    {w:'샤이니',h:'SHINee'},{w:'엑소',h:'EXO'},{w:'NCT 127',h:'NCT 127'},{w:'트와이스',h:'TWICE'},{w:'2NE1',h:'2NE1'},
+    {w:'빅뱅',h:'BIGBANG'},{w:'슈퍼주니어',h:'Super Junior'},{w:'소녀시대',h:'Girls Generation'},{w:'원더걸스',h:'Wonder Girls'},{w:'f(x)',h:'f(x)'},
+    // 배우 & 영화
+    {w:'이정재',h:'Lee Jung-jae (Squid Game)'},{w:'정호연',h:'Jung Ho-yeon (Squid Game)'},{w:'봉준호',h:'Bong Joon-ho (Parasite director)'},{w:'마동석',h:'Don Lee (Train to Busan)'},{w:'박서준',h:'Park Seo-joon'},
+    {w:'이병헌',h:'Lee Byung-hun'},{w:'전지현',h:'Jun Ji-hyun'},{w:'공유',h:'Gong Yoo (Train to Busan)'},{w:'송강호',h:'Song Kang-ho (Parasite)'},{w:'김수현',h:'Kim Soo-hyun'},
+    // 세계 팝스타
+    {w:'테일러 스위프트',h:'Taylor Swift'},{w:'비욘세',h:'Beyoncé'},{w:'레이디 가가',h:'Lady Gaga'},{w:'아리아나 그란데',h:'Ariana Grande'},{w:'빌리 아일리시',h:'Billie Eilish'},
+    {w:'해리 스타일스',h:'Harry Styles'},{w:'에드 시런',h:'Ed Sheeran'},{w:'두아 리파',h:'Dua Lipa'},{w:'저스틴 비버',h:'Justin Bieber'},{w:'셀레나 고메즈',h:'Selena Gomez'},
+    {w:'브루노 마스',h:'Bruno Mars'},{w:'위켄드',h:'The Weeknd'},{w:'포스트 말론',h:'Post Malone'},{w:'드레이크',h:'Drake'},{w:'카디비',h:'Cardi B'},
+    // 스포츠
+    {w:'손흥민',h:'Son Heung-min (soccer)'},{w:'르브론 제임스',h:'LeBron James (basketball)'},{w:'크리스티아누 호날두',h:'Cristiano Ronaldo (soccer)'},{w:'리오넬 메시',h:'Lionel Messi (soccer)'},{w:'세레나 윌리엄스',h:'Serena Williams (tennis)'},
+    {w:'스테판 커리',h:'Stephen Curry (basketball)'},{w:'나달',h:'Rafael Nadal (tennis)'},{w:'우사인 볼트',h:'Usain Bolt (sprinter)'},{w:'마이클 조던',h:'Michael Jordan (basketball)'},{w:'류현진',h:'Ryu Hyun-jin (baseball)'},
+    // 위인
+    {w:'아인슈타인',h:'Einstein (physicist)'},{w:'레오나르도 다빈치',h:'Leonardo da Vinci (artist)'},{w:'모차르트',h:'Mozart (composer)'},{w:'클레오파트라',h:'Cleopatra (queen)'},{w:'마틴 루터 킹',h:'Martin Luther King Jr.'},
+    {w:'세종대왕',h:'King Sejong (Korean king)'},{w:'스티브 잡스',h:'Steve Jobs (Apple founder)'},{w:'엘론 머스크',h:'Elon Musk (Tesla/SpaceX)'},{w:'넬슨 만델라',h:'Nelson Mandela'},{w:'나폴레옹',h:'Napoleon (French emperor)'},
+    {w:'마더 테레사',h:'Mother Teresa'},{w:'링컨',h:'Abraham Lincoln'},{w:'뉴턴',h:'Isaac Newton'},{w:'갈릴레오',h:'Galileo'},{w:'마리 퀴리',h:'Marie Curie'}
   ],
   meme: [
-    {w:'국룰',h:'Common rule / unwritten rule'},{w:'TMI',h:'Too much information'},{w:'갓생',h:'God-like productive life'},{w:'소확행',h:'Small but certain happiness'},{w:'현타',h:'Reality check / coming back to reality'},
-    {w:'꿀잼',h:'Super fun / honey fun'},{w:'인싸',h:'Insider / popular person'},{w:'아싸',h:'Outsider / loner'},{w:'최애',h:'Favorite (person)'},{w:'케미',h:'Chemistry'},
-    {w:'직관',h:'Attending a live event'},{w:'덕질',h:'Fandom activities'},{w:'찐이야',h:'It\'s real / genuine'},{w:'레전드',h:'Legend'},{w:'핵인싸',h:'Super popular person'},
-    {w:'취향저격',h:'Exactly my taste'},{w:'힐링',h:'Healing / relaxing'},{w:'꿀팁',h:'Honey tip / great tip'},{w:'빵터지다',h:'Burst out laughing'},{w:'킹받다',h:'So annoying'},
-    {w:'갑분싸',h:'Suddenly awkward atmosphere'},{w:'존맛',h:'Incredibly delicious'},{w:'팩폭',h:'Fact bomb / harsh truth'},{w:'인생샷',h:'Best photo of your life'},{w:'MBTI',h:'MBTI personality type'}
+    {w:'국룰',h:'Unwritten rule everyone follows'},{w:'TMI',h:'Too much information'},{w:'갓생',h:'Incredibly productive life'},{w:'소확행',h:'Small but certain happiness'},{w:'현타',h:'Reality hitting you hard'},
+    {w:'꿀잼',h:'Super fun'},{w:'인싸',h:'Popular insider'},{w:'아싸',h:'Social outsider'},{w:'최애',h:'All-time favorite'},{w:'케미',h:'Great chemistry'},
+    {w:'직관',h:'Attending live in person'},{w:'덕질',h:'Fandom hobby activities'},{w:'찐이야',h:'It\'s totally real'},{w:'레전드',h:'Legendary moment'},{w:'핵인싸',h:'Super popular person'},
+    {w:'취향저격',h:'Hits exactly my taste'},{w:'힐링',h:'Healing and relaxing'},{w:'꿀팁',h:'Amazing useful tip'},{w:'빵터지다',h:'Burst out laughing'},{w:'킹받다',h:'So annoying'},
+    {w:'갑분싸',h:'Suddenly awkward vibe'},{w:'존맛',h:'Incredibly delicious'},{w:'팩폭',h:'Brutal honest truth'},{w:'인생샷',h:'Best photo of your life'},{w:'MBTI',h:'Personality type test'},
+    {w:'별다줄',h:'Abbreviation of abbreviation'},{w:'MZ세대',h:'Millennial and Gen Z'},{w:'띵작',h:'Masterpiece (slang)'},{w:'갬성',h:'Aesthetic / mood (slang)'},{w:'스불재',h:'It\'s my fault for trusting'},
+    {w:'존버',h:'Holding on no matter what'},{w:'JMT',h:'So delicious (abbreviation)'},{w:'ㅇㅈ',h:'I agree'},{w:'ㄱㅇㄷ',h:'It\'s worth doing'},{w:'뇌절',h:'Going too far with a joke'},
+    {w:'고인물',h:'Pro who\'s been around forever'},{w:'뉴비',h:'Newbie'},{w:'버킷리스트',h:'Bucket list'},{w:'플렉스',h:'Flex / showing off'},{w:'인증샷',h:'Proof photo'}
   ],
   daily: [
-    {w:'냉장고',h:'Refrigerator'},{w:'세탁기',h:'Washing machine'},{w:'침대',h:'Bed'},{w:'베개',h:'Pillow'},{w:'이불',h:'Blanket / comforter'},
+    // 집 안
+    {w:'냉장고',h:'Refrigerator'},{w:'세탁기',h:'Washing machine'},{w:'침대',h:'Bed'},{w:'베개',h:'Pillow'},{w:'이불',h:'Blanket'},
     {w:'소파',h:'Sofa'},{w:'책상',h:'Desk'},{w:'의자',h:'Chair'},{w:'텔레비전',h:'Television'},{w:'컴퓨터',h:'Computer'},
-    {w:'전화기',h:'Phone'},{w:'시계',h:'Clock / watch'},{w:'달력',h:'Calendar'},{w:'거울',h:'Mirror'},{w:'칫솔',h:'Toothbrush'},
+    {w:'전화기',h:'Phone'},{w:'시계',h:'Clock'},{w:'달력',h:'Calendar'},{w:'거울',h:'Mirror'},{w:'칫솔',h:'Toothbrush'},
+    {w:'비누',h:'Soap'},{w:'샴푸',h:'Shampoo'},{w:'수건',h:'Towel'},{w:'빗',h:'Comb'},{w:'치약',h:'Toothpaste'},
+    {w:'에어컨',h:'Air conditioner'},{w:'선풍기',h:'Electric fan'},{w:'전등',h:'Light bulb'},{w:'커튼',h:'Curtain'},{w:'화분',h:'Flower pot'},
+    // 학교 & 문구
     {w:'연필',h:'Pencil'},{w:'지우개',h:'Eraser'},{w:'가위',h:'Scissors'},{w:'풀',h:'Glue'},{w:'책',h:'Book'},
-    {w:'공책',h:'Notebook'},{w:'가방',h:'Bag'},{w:'색연필',h:'Colored pencil'},{w:'티셔츠',h:'T-shirt'},{w:'바지',h:'Pants'},
-    {w:'치마',h:'Skirt'},{w:'신발',h:'Shoes'},{w:'양말',h:'Socks'},{w:'모자',h:'Hat'},{w:'장갑',h:'Gloves'},
-    {w:'목도리',h:'Scarf'},{w:'코트',h:'Coat'},{w:'버스',h:'Bus'},{w:'지하철',h:'Subway'},{w:'자동차',h:'Car'},
-    {w:'자전거',h:'Bicycle'},{w:'비행기',h:'Airplane'},{w:'학교',h:'School'},{w:'병원',h:'Hospital'},{w:'공원',h:'Park'},
-    {w:'강아지',h:'Puppy / dog'},{w:'고양이',h:'Cat'},{w:'토끼',h:'Rabbit'},{w:'원숭이',h:'Monkey'},{w:'코끼리',h:'Elephant'},
-    {w:'기린',h:'Giraffe'},{w:'펭귄',h:'Penguin'},{w:'돌고래',h:'Dolphin'},{w:'독수리',h:'Eagle'},{w:'사자',h:'Lion'}
+    {w:'공책',h:'Notebook'},{w:'가방',h:'Bag'},{w:'색연필',h:'Colored pencil'},{w:'자',h:'Ruler'},{w:'형광펜',h:'Highlighter'},
+    {w:'볼펜',h:'Ballpoint pen'},{w:'스케치북',h:'Sketchbook'},{w:'크레용',h:'Crayon'},{w:'물감',h:'Paint'},{w:'붓',h:'Paintbrush'},
+    // 옷
+    {w:'티셔츠',h:'T-shirt'},{w:'바지',h:'Pants'},{w:'치마',h:'Skirt'},{w:'신발',h:'Shoes'},{w:'양말',h:'Socks'},
+    {w:'모자',h:'Hat'},{w:'장갑',h:'Gloves'},{w:'목도리',h:'Scarf'},{w:'코트',h:'Coat'},{w:'잠옷',h:'Pajamas'},
+    {w:'원피스',h:'Dress'},{w:'점퍼',h:'Jacket'},{w:'청바지',h:'Jeans'},{w:'운동화',h:'Sneakers'},{w:'슬리퍼',h:'Slippers'},
+    // 교통 & 장소
+    {w:'버스',h:'Bus'},{w:'지하철',h:'Subway'},{w:'자동차',h:'Car'},{w:'자전거',h:'Bicycle'},{w:'비행기',h:'Airplane'},
+    {w:'기차',h:'Train'},{w:'택시',h:'Taxi'},{w:'배',h:'Ship / boat'},{w:'오토바이',h:'Motorcycle'},{w:'헬리콥터',h:'Helicopter'},
+    {w:'학교',h:'School'},{w:'병원',h:'Hospital'},{w:'공원',h:'Park'},{w:'편의점',h:'Convenience store'},{w:'도서관',h:'Library'},
+    {w:'마트',h:'Supermarket'},{w:'영화관',h:'Movie theater'},{w:'수영장',h:'Swimming pool'},{w:'놀이터',h:'Playground'},{w:'동물원',h:'Zoo'},
+    // 동물
+    {w:'강아지',h:'Dog'},{w:'고양이',h:'Cat'},{w:'토끼',h:'Rabbit'},{w:'원숭이',h:'Monkey'},{w:'코끼리',h:'Elephant'},
+    {w:'기린',h:'Giraffe'},{w:'펭귄',h:'Penguin'},{w:'돌고래',h:'Dolphin'},{w:'독수리',h:'Eagle'},{w:'사자',h:'Lion'},
+    {w:'호랑이',h:'Tiger'},{w:'곰',h:'Bear'},{w:'여우',h:'Fox'},{w:'늑대',h:'Wolf'},{w:'말',h:'Horse'},
+    {w:'돼지',h:'Pig'},{w:'닭',h:'Chicken'},{w:'소',h:'Cow'},{w:'양',h:'Sheep'},{w:'금붕어',h:'Goldfish'},
+    // 신체
+    {w:'머리',h:'Head'},{w:'눈',h:'Eyes'},{w:'코',h:'Nose'},{w:'입',h:'Mouth'},{w:'귀',h:'Ear'},
+    {w:'손',h:'Hand'},{w:'발',h:'Foot'},{w:'배',h:'Stomach'},{w:'등',h:'Back'},{w:'무릎',h:'Knee'}
   ],
   emotion: [
+    // 기본 감정
     {w:'기쁘다',h:'Happy'},{w:'슬프다',h:'Sad'},{w:'화나다',h:'Angry'},{w:'무섭다',h:'Scared'},{w:'신나다',h:'Excited'},
     {w:'부끄럽다',h:'Embarrassed'},{w:'외롭다',h:'Lonely'},{w:'그립다',h:'Miss someone'},{w:'피곤하다',h:'Tired'},{w:'배고프다',h:'Hungry'},
-    {w:'졸리다',h:'Sleepy'},{w:'설레다',h:'Excited / flutter'},{w:'당황하다',h:'Flustered'},{w:'실망하다',h:'Disappointed'},{w:'후회하다',h:'Regret'},
-    {w:'뿌듯하다',h:'Proud'},{w:'두근두근',h:'Heart pounding'},{w:'짜릿하다',h:'Thrilling'},{w:'다행이다',h:'Relieved'},{w:'지치다',h:'Exhausted'},
-    {w:'억울하다',h:'Unfair / wronged'},{w:'불안하다',h:'Anxious'},{w:'행복하다',h:'Happy'},{w:'즐겁다',h:'Joyful'},{w:'무기력하다',h:'Lethargic'}
+    {w:'졸리다',h:'Sleepy'},{w:'설레다',h:'Nervous/excited'},{w:'당황하다',h:'Flustered'},{w:'실망하다',h:'Disappointed'},{w:'후회하다',h:'Regret'},
+    {w:'뿌듯하다',h:'Feel proud'},{w:'두근두근',h:'Heart pounding'},{w:'짜릿하다',h:'Thrilling'},{w:'다행이다',h:'Relieved'},{w:'지치다',h:'Worn out'},
+    {w:'억울하다',h:'Feel wronged'},{w:'불안하다',h:'Anxious'},{w:'행복하다',h:'Happy'},{w:'즐겁다',h:'Joyful'},{w:'무기력하다',h:'Lethargic'},
+    // 좀 더 구체적
+    {w:'깜짝 놀라다',h:'Surprised'},{w:'심심하다',h:'Bored'},{w:'귀찮다',h:'Lazy / bothersome'},{w:'걱정되다',h:'Worried'},{w:'긴장되다',h:'Nervous'},
+    {w:'편하다',h:'Comfortable'},{w:'불편하다',h:'Uncomfortable'},{w:'궁금하다',h:'Curious'},{w:'무관심하다',h:'Indifferent'},{w:'흥미롭다',h:'Interesting'},
+    {w:'감동받다',h:'Moved / touched'},{w:'속상하다',h:'Upset / distressed'},{w:'답답하다',h:'Frustrated'},{w:'신기하다',h:'Amazing / fascinating'},{w:'부럽다',h:'Jealous / envious'},
+    {w:'고맙다',h:'Grateful'},{w:'미안하다',h:'Sorry'},{w:'자랑스럽다',h:'Proud'},{w:'창피하다',h:'Ashamed'},{w:'설레발치다',h:'Getting ahead of yourself'}
   ],
   kpop: [
-    {w:'BTS',h:'BTS'},{w:'블랙핑크',h:'BLACKPINK'},{w:'아이돌',h:'Idol'},{w:'무대',h:'Stage'},{w:'팬미팅',h:'Fan meeting'},
-    {w:'컴백',h:'Comeback'},{w:'뮤직비디오',h:'Music video'},{w:'콘서트',h:'Concert'},{w:'응원봉',h:'Light stick'},{w:'사인회',h:'Autograph event'},
-    {w:'최애',h:'Favorite member'},{w:'입덕',h:'Becoming a fan'},{w:'앨범',h:'Album'},{w:'팬클럽',h:'Fan club'},{w:'데뷔',h:'Debut'},
-    {w:'직캠',h:'Fancam'},{w:'챌린지',h:'Dance challenge'},{w:'굿즈',h:'Merchandise'},{w:'티저',h:'Teaser'},{w:'안무',h:'Choreography'},
-    {w:'아미',h:'ARMY (BTS fans)'},{w:'블링크',h:'BLINK (BLACKPINK fans)'},{w:'연습생',h:'Trainee'},{w:'오디션',h:'Audition'},{w:'트와이스',h:'TWICE'},
-    {w:'음악방송',h:'Music show'},{w:'1위',h:'Number one'},{w:'인기가요',h:'Inkigayo (music show)'},{w:'뮤직뱅크',h:'Music Bank'},{w:'월드투어',h:'World tour'}
+    // 그룹
+    {w:'BTS',h:'BTS (boy band)'},{w:'블랙핑크',h:'BLACKPINK'},{w:'뉴진스',h:'NewJeans'},{w:'aespa',h:'aespa'},{w:'스트레이 키즈',h:'Stray Kids'},
+    {w:'르세라핌',h:'LE SSERAFIM'},{w:'아이브',h:'IVE'},{w:'세븐틴',h:'Seventeen'},{w:'트와이스',h:'TWICE'},{w:'엑소',h:'EXO'},
+    {w:'샤이니',h:'SHINee'},{w:'빅뱅',h:'BIGBANG'},{w:'2NE1',h:'2NE1'},{w:'소녀시대',h:'Girls\' Generation'},{w:'GOT7',h:'GOT7'},
+    // 활동 용어
+    {w:'아이돌',h:'Idol'},{w:'무대',h:'Stage performance'},{w:'팬미팅',h:'Fan meeting'},{w:'컴백',h:'Comeback'},{w:'뮤직비디오',h:'Music video'},
+    {w:'콘서트',h:'Concert'},{w:'응원봉',h:'Light stick'},{w:'사인회',h:'Autograph event'},{w:'데뷔',h:'Debut'},{w:'안무',h:'Choreography'},
+    {w:'직캠',h:'Fancam video'},{w:'챌린지',h:'Dance challenge'},{w:'티저',h:'Teaser'},{w:'앨범',h:'Album'},{w:'타이틀곡',h:'Title track'},
+    // 팬덤 문화
+    {w:'최애',h:'Favorite member'},{w:'입덕',h:'Becoming a fan'},{w:'팬클럽',h:'Fan club'},{w:'아미',h:'ARMY (BTS fans)'},{w:'블링크',h:'BLINK (BLACKPINK fans)'},
+    {w:'굿즈',h:'Merchandise'},{w:'포카',h:'Photo card'},{w:'연습생',h:'Trainee'},{w:'오디션',h:'Audition'},{w:'스밍',h:'Streaming to boost charts'},
+    // 방송
+    {w:'음악방송',h:'Music show'},{w:'인기가요',h:'Inkigayo'},{w:'뮤직뱅크',h:'Music Bank'},{w:'쇼챔피언',h:'Show Champion'},{w:'1위',h:'Number one'},
+    {w:'연말시상식',h:'Year-end awards show'},{w:'칼군무',h:'Perfectly synchronized dance'},{w:'월드투어',h:'World tour'},{w:'솔로',h:'Solo activity'},{w:'유닛',h:'Sub-unit group'}
   ]
 };
 
